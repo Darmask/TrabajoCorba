@@ -1,0 +1,9 @@
+module ProveedoresApp{
+    interface Proveedores{
+            boolean insertarProveedores(in long cedula,in wstring nombre, in wstring apellido, in wstring telefono, in long id_producto, in long id_marca, in long marca, in long precio_compra, in long precio_uno, in long precio_dos, in long precio_tres, in wstring fecha_compra);
+            boolean actualizarProveedores(in long cedula,in wstring nombre, in wstring apellido, in wstring telefono, in long id_producto, in long id_marca, in long marca, in long precio_compra, in long precio_uno, in long precio_dos, in long precio_tres, in wstring fecha_compra);
+            boolean eliminarProveedores(in long id);
+            oneway void shutdown();
+    };
+};
+

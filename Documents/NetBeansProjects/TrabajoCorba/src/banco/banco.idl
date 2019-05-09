@@ -1,0 +1,8 @@
+module BancoApp{
+    interface Banco{
+            boolean insertarBanco(in wstring nombre, in wstring estado);
+            boolean actualizarBanco(in wstring nombre, in wstring estado);
+            boolean eliminarBanco(in long id);
+        oneway void shutdown();
+    };
+};

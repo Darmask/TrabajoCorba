@@ -1,0 +1,9 @@
+module Tipo_clienteApp{
+    interface Tipo_cliente{
+            boolean insertarTipo_cliente(in long id_tipo,in wstring tipo);
+            boolean actualizarTipo_cliente(in long id_tipo,in wstring tipo);
+            boolean eliminarTipo_cliente(in long id_tipo);
+            oneway void shutdown();
+    };
+};
+

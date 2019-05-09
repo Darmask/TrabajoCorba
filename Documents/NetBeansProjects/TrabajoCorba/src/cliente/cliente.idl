@@ -1,0 +1,8 @@
+module ClienteApp{
+    interface Cliente{
+            boolean insertarCliente(in wstring nombre, in wstring apellido, in wstring tipo_cedula, in long cedula, in long id_tipo_cliente);
+            boolean actualizarCliente(in wstring nombre, in wstring apellido, in wstring tipo_cedula, in long cedula, in long id_tipo_cliente);
+            boolean eliminarCliente(in long id);
+        oneway void shutdown();
+    };
+};

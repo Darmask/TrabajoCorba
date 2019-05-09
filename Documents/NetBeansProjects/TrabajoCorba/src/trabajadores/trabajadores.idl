@@ -1,0 +1,9 @@
+module TrabajadoresApp{
+    interface Trabajadores{
+            boolean insertarTrabajadores(in wstring nombre, in wstring estado, in long id_local);
+            boolean actualizarTrabajadores(in wstring nombre, in wstring estado, in long id_local);
+            boolean eliminarTrabajadores(in long id);
+            oneway void shutdown();
+    };
+};
+

@@ -1,0 +1,9 @@
+module MarcaApp{
+    interface Marca{
+            boolean insertarMarca(in wstring Marca);
+            boolean actualizarMarca(in wstring marca);
+            boolean eliminarMarca(in long id);
+            oneway void shutdown();
+    };
+};
+

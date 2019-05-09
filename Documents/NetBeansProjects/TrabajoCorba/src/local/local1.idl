@@ -1,0 +1,8 @@
+module Local1App{
+    interface Local1{
+            boolean insertarLocal(in wstring nombre, in wstring direccion, in long id_administrador);
+            boolean actualizarLocal(in wstring nombre, in wstring direccion, in long id_administrador);
+            boolean eliminarLocal(in long id);
+        oneway void shutdown();
+    };
+};

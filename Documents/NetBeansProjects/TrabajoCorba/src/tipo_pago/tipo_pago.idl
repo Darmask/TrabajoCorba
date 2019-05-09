@@ -1,0 +1,9 @@
+module Tipo_pagoApp{
+    interface Tipo_pago{
+            boolean insertarTipo_pago(in wstring descripcion, in wstring estado, in long id_banco);
+            boolean actualizarTipo_pago(in wstring descripcion, in wstring estado, in long id_banco);
+            boolean eliminarTipo_pago(in long id);
+            oneway void shutdown();
+    };
+};
+

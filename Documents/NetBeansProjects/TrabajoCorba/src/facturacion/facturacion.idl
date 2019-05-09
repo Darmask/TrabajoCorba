@@ -1,0 +1,9 @@
+module FacturacionApp{
+    interface Facturacion{
+            boolean insertarFacturacion(in wstring fecha_venta, in long id_cliente, in long id_producto, in long cantidad, in long precio_unidad,in long precio_sin_iva, in long precio_con_iva, in long id_tipo_pago, in long id_local);
+            boolean actualizarFacturacion(in wstring fecha_venta, in long id_cliente, in long id_producto, in long cantidad, in long precio_unidad,in long precio_sin_iva, in long precio_con_iva, in long id_tipo_pago, in long id_local);
+            boolean eliminarFacturacion(in long id);
+        oneway void shutdown();
+    };
+};
+

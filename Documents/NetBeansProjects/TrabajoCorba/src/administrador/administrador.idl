@@ -1,0 +1,8 @@
+module AdministradorApp{
+    interface Administrador{
+            boolean insertarAdministrador(in wstring nombre, in long telefono);
+            boolean actualizarAdministrador(in wstring nombre, in long telefono);
+            boolean eliminarAdministrador(in long id);
+        oneway void shutdown();
+    };
+};

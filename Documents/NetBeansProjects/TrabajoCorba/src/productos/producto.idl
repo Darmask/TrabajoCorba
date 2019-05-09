@@ -1,0 +1,8 @@
+module ProductoApp{
+    interface producto{
+            boolean insertarProducto(in wstring nombre);
+            boolean actualizarProducto(in wstring nombre);
+            boolean eliminarProducto(in long id);
+            oneway void shutdown();
+    };
+};

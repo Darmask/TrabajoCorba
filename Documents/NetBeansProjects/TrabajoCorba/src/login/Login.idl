@@ -1,0 +1,9 @@
+module LoginApp{
+    interface Login{
+            boolean insertarLogin(in wstring usuario, in wstring contrasena);
+            boolean actualizarLogin(in wstring usuario, in wstring contrasena);
+            boolean eliminarLogin(in wstring usuario);
+        oneway void shutdown();
+    };
+};
+

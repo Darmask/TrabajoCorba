@@ -1,0 +1,9 @@
+module PendienteApp{
+    interface Pendiente{
+            boolean insertarPendiente(in wstring descripcion, in long id_facturacion);
+            boolean actualizarPendiente(in wstring descripcion, in long id_facturacion);
+            boolean eliminarPendiente(in long id);
+            oneway void shutdown();
+    };
+};
+
