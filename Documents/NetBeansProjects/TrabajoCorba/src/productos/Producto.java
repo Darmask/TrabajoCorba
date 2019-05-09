@@ -82,7 +82,7 @@ public class Producto extends ProductoApp.productoPOA {
     public void shutdown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     public ResultSet cargarTablaProducto() {
         ResultSet resultado = null;
         try {

@@ -18,6 +18,7 @@ public class RegistroProducto extends javax.swing.JFrame {
         modeloPersona = new DefaultTableModel(null, getColumn());
         initComponents();
         cargarTabla();
+
     }
 
     private String[] getColumn() {
@@ -42,6 +43,7 @@ public class RegistroProducto extends javax.swing.JFrame {
     }
 
     private DefaultTableModel modeloPersona;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -64,6 +66,11 @@ public class RegistroProducto extends javax.swing.JFrame {
         });
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
 
@@ -119,14 +126,15 @@ public class RegistroProducto extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Producto objPersona = new Producto();
-
         String nombre = txtNombreProducto.getText();
-
         boolean resultado = objPersona.insertarProducto(nombre);
 
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
+            modeloPersona.setNumRows(0);
+
             cargarTabla();
+            
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
@@ -136,6 +144,10 @@ public class RegistroProducto extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
