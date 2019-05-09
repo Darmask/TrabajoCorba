@@ -34,7 +34,7 @@ public class Producto extends ProductoApp.productoPOA {
     }
 
     
-    public String consultarPersona(String nombre_producto) {
+    public String consultarProducto(String nombre_producto) {
 
         String lista = "";
         try {
@@ -44,11 +44,8 @@ public class Producto extends ProductoApp.productoPOA {
             ResultSet rs = st.executeQuery(sentenciSql);
             while (rs.next()) {
                 lista += rs.getLong(2) + " - "
-                        + rs.getString(3) + " - "
-                        + rs.getString(4) + " - "
-                        + rs.getString(5) + " - "
-                        + rs.getString(6) + " - "
-                        + rs.getString(7);
+                        + rs.getString(3);
+                        
             }
 //Se cierran los recursos.
             rs.close();
@@ -89,7 +86,7 @@ public class Producto extends ProductoApp.productoPOA {
     public ResultSet cargarTablaProducto() {
         ResultSet resultado = null;
         try {
-            String query = "Select nombre_producto from producto";
+            String query = "Select id ,nombre_producto from producto";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);
