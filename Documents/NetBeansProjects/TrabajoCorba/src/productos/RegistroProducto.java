@@ -128,7 +128,12 @@ public class RegistroProducto extends javax.swing.JFrame {
         Producto objPersona = new Producto();
         String nombre = txtNombreProducto.getText();
         boolean resultado = objPersona.insertarProducto(nombre);
-
+        if (txtNombreProducto.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del producto.");
+            txtNombreProducto.requestFocus();
+            return;
+        }
+        
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
             modeloPersona.setNumRows(0);
