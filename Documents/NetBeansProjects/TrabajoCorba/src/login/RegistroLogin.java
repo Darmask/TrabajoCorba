@@ -22,10 +22,10 @@ public class RegistroLogin extends javax.swing.JFrame {
     public RegistroLogin() {
         modeloLogin = new DefaultTableModel(null, getColumn());
         initComponents();
-        initComponents();
+        cargarTabla();
     }
     private String[] getColumn() {
-        String columnas[] = new String[]{"usuario", "contraseña"};
+        String columnas[] = new String[]{"usuario", "contrasena"};
         return columnas;
     }
     private void cargarTabla() {
@@ -149,8 +149,13 @@ public class RegistroLogin extends javax.swing.JFrame {
         String contrasena = txtContraseña.getText();
         boolean resultado = objLogin.insertarLogin(usuario,contrasena);
         if (txtUsuario.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del producto.");
+            JOptionPane.showMessageDialog(null, "Debe ingresar el usuario.");
             txtUsuario.requestFocus();
+            return;
+        }
+        if (txtContraseña.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar la contraseña.");
+            txtContraseña.requestFocus();
             return;
         }
         

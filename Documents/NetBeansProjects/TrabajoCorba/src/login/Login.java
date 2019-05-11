@@ -15,7 +15,7 @@ public class Login extends LoginApp.LoginPOA{
         
         boolean resultado = false;
         try {
-            String sentenciaSql = "insert into producto (usuario,contrasena)"
+            String sentenciaSql = "insert into login (usuario,contrasena)"
                     + "values('" + usuario + "','" + contrasena + "')";
             conex.conectar();
             Statement st = conex.conex.createStatement();
@@ -42,7 +42,7 @@ public class Login extends LoginApp.LoginPOA{
     public boolean eliminarLogin(String usuario) {
          boolean resultado = false;
         try {
-            String sentenciSql = "delete from persona where usuario = " + usuario;
+            String sentenciSql = "delete from login where usuario = " + usuario;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);
@@ -57,29 +57,12 @@ public class Login extends LoginApp.LoginPOA{
         }
         return resultado;
     }
-    public ResultSet cargarTablaLogin() {
-        ResultSet resultado = null;
-        try {
-            String query = "Select usuario ,contrasena from Login";
-            conex.conectar();
-            Statement st = conex.conex.createStatement();
-            resultado = st.executeQuery(query);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
-        }
-        return resultado;
-    }
-
-    @Override
-    public void shutdown() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    public String consultarLogin(String usuario,String contrasena) {
+   
+     public String consultarLogin(String usuario,String contrasena) {
 
         String lista = "";
         try {
-            String sentenciSql = "Select * from producto where usuario = " +usuario;
+            String sentenciSql = "Select * from login where usuario = " + usuario;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             ResultSet rs = st.executeQuery(sentenciSql);
@@ -98,5 +81,25 @@ public class Login extends LoginApp.LoginPOA{
         return lista;
 
     }
+
+    @Override
+    public void shutdown() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     public ResultSet cargarTablaLogin() {
+        ResultSet resultado = null;
+        try {
+            String query = "Select usuario ,contrasena from login";
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+        return resultado;
+    }
+   
     
 }
