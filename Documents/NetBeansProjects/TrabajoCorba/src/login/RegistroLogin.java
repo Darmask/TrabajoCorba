@@ -93,6 +93,7 @@ public class RegistroLogin extends javax.swing.JFrame {
 
         btnEliminar.setText("Eliminar");
 
+        tblLogin.setModel(modeloLogin);
         jScrollPane2.setViewportView(tblLogin);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
