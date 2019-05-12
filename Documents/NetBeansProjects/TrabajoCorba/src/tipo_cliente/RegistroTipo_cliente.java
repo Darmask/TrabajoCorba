@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package tipo_cliente;
-
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author NicolasBedoya
@@ -15,8 +17,31 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
      * Creates new form RegistroTipo_cliente
      */
     public RegistroTipo_cliente() {
+        modeloTipo_cliente = new DefaultTableModel(null, getColumn());
         initComponents();
+        cargarTabla();
     }
+     private String[] getColumn() {
+        String columnas[] = new String[]{"Id_tipo", "tipo"};
+        return columnas;
+    }
+    private void cargarTabla() {
+        Tipo_cliente objTipo_cliente = new Tipo_cliente();
+        ResultSet resultado = objTipo_cliente.cargarTablaTipo_cliente();
+        try {
+            Object dato[] = new Object[2];
+            while (resultado.next()) {
+                for (int i = 0; i < 2; i++) {
+                    dato[i] = resultado.getObject(i + 1);
+                }
+                modeloTipo_cliente.addRow(dato);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getMessage());
+        }
+    }
+
+    private DefaultTableModel modeloTipo_cliente;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +52,93 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txtTipo = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTipo_cliente = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Tipo");
+
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("ELIMINAR");
+
+        tblTipo_cliente.setModel(modeloTipo_cliente);
+        jScrollPane1.setViewportView(tblTipo_cliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(61, 61, 61)
+                                .addComponent(btnEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(49, 49, 49)
+                                .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnEliminar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        Tipo_cliente objTipo_cliente = new Tipo_cliente();
+        String tipo = txtTipo.getText();
+        boolean resultado = objTipo_cliente.insertarTipo_cliente(tipo);
+        if (txtTipo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el tipo.");
+            txtTipo.requestFocus();
+            return;
+        }
+
+        if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
+            modeloTipo_cliente.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+
+        // *** Limpio los Campos ***
+        txtTipo.setText("");
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +176,11 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblTipo_cliente;
+    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }
