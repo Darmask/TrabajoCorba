@@ -30,9 +30,9 @@ public class RegistroAdministrador extends javax.swing.JFrame {
         Administrador objAdministrador = new Administrador();
         ResultSet resultado = objAdministrador.cargarTablaAdministrador();
         try {
-            Object dato[] = new Object[2];
+            Object dato[] = new Object[3];
             while (resultado.next()) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 3; i++) {
                     dato[i] = resultado.getObject(i + 1);
                 }
                 modeloAdministrador.addRow(dato);
