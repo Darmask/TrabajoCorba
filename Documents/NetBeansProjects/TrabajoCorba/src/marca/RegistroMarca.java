@@ -83,9 +83,16 @@ public class RegistroMarca extends javax.swing.JFrame {
         });
 
         tblMarca.setModel(modeloMarca);
+        tblMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMarcaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblMarca);
 
         jLabel1.setText("ID");
+
+        txtId.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,9 +170,24 @@ public class RegistroMarca extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
          Marca objMarca = new Marca();
          int id = Integer.parseInt(txtId.getText());
-        boolean resultado = objMarca.eliminarMarca(id);
+         boolean resultado = objMarca.eliminarMarca(id);
+         if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            modeloMarca.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
         
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMarcaMouseClicked
+        int seleccion=tblMarca.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblMarca.getValueAt(seleccion,0)));
+        txtMarca.setText(String.valueOf(tblMarca.getValueAt(seleccion,1)));
+    }//GEN-LAST:event_tblMarcaMouseClicked
 
     /**
      * @param args the command line arguments

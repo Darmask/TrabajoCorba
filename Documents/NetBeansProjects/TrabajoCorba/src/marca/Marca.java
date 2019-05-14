@@ -64,7 +64,7 @@ public class Marca extends MarcaApp.MarcaPOA{
     public boolean eliminarMarca(int id) {
         boolean resultado = false;
         try {
-            String sentenciSql = "delete from marca where identificacion = " + id;
+            String sentenciSql = "delete from marca where id = " + id;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);
