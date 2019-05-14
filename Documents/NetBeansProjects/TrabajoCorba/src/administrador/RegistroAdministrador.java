@@ -215,6 +215,10 @@ public class RegistroAdministrador extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
+        // *** Limpio los Campos ***
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtId.setText("");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

@@ -214,6 +214,10 @@ public class RegistroLogin extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
+         
+        // *** Limpio los Campos ***
+        txtUsuario.setText("");
+        txtContraseña.setText(""); 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

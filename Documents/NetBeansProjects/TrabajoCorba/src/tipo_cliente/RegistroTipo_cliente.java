@@ -183,6 +183,10 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
+         
+         // *** Limpio los Campos ***
+        txtTipo.setText("");
+        txtId.setText("");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

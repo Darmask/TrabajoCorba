@@ -180,6 +180,9 @@ public class RegistroMarca extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
+         
+         txtId.setText("");
+         txtMarca.setText("");
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 

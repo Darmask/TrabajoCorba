@@ -216,6 +216,11 @@ public class RegistroBanco extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
+        
+        // *** Limpio los Campos ***
+        txtNombre.setText("");
+        txtEstado.setText("");
+        txtId.setText("");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

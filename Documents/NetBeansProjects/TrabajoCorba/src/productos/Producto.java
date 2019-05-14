@@ -62,7 +62,7 @@ public class Producto extends ProductoApp.productoPOA {
     public boolean eliminarProducto(int id) {
         boolean resultado = false;
         try {
-            String sentenciSql = "delete from persona where identificacion = " + id;
+            String sentenciSql = "delete from producto where id = " + id;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);
