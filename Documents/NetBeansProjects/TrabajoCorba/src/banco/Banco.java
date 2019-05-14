@@ -39,7 +39,7 @@ public class Banco extends BancoApp.BancoPOA{
     public boolean eliminarBanco(int id) {
         boolean resultado = false;
         try {
-            String sentenciSql = "delete from banco where identificacion = " + id;
+            String sentenciSql = "delete from banco where id = " + id;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);

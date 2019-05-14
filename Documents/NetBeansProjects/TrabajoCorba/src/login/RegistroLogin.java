@@ -98,8 +98,18 @@ public class RegistroLogin extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tblLogin.setModel(modeloLogin);
+        tblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLoginMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblLogin);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,6 +194,27 @@ public class RegistroLogin extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void tblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoginMouseClicked
+        int seleccion=tblLogin.rowAtPoint(evt.getPoint());
+        txtUsuario.setText(String.valueOf(tblLogin.getValueAt(seleccion,0)));
+        txtContraseña.setText(String.valueOf(tblLogin.getValueAt(seleccion,1)));
+    }//GEN-LAST:event_tblLoginMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Login objLogin = new Login();
+        String usuario = txtUsuario.getText();
+         boolean resultado = objLogin.eliminarLogin(usuario);
+         if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            modeloLogin.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

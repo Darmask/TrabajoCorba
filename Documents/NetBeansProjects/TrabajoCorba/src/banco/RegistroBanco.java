@@ -62,7 +62,7 @@ public class RegistroBanco extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblBanco = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
 
@@ -93,11 +93,23 @@ public class RegistroBanco extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(modeloBanco);
-        jScrollPane2.setViewportView(jTable2);
+        tblBanco.setModel(modeloBanco);
+        tblBanco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBancoMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblBanco);
 
         jLabel3.setText("Id");
+
+        txtId.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,6 +196,28 @@ public class RegistroBanco extends javax.swing.JFrame {
         txtEstado.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void tblBancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBancoMouseClicked
+        int seleccion=tblBanco.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblBanco.getValueAt(seleccion,0)));
+        txtNombre.setText(String.valueOf(tblBanco.getValueAt(seleccion,1)));
+        txtEstado.setText(String.valueOf(tblBanco.getValueAt(seleccion,2)));
+    }//GEN-LAST:event_tblBancoMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Banco objBanco = new Banco();
+         int id = Integer.parseInt(txtId.getText());
+         boolean resultado = objBanco.eliminarBanco(id);
+         if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            modeloBanco.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -228,7 +262,7 @@ public class RegistroBanco extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblBanco;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;

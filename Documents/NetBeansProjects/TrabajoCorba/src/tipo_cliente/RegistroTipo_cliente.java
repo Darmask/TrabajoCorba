@@ -73,11 +73,23 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tblTipo_cliente.setModel(modeloTipo_cliente);
+        tblTipo_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTipo_clienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblTipo_cliente);
 
         jLabel2.setText("Id");
+
+        txtId.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,6 +163,27 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         // *** Limpio los Campos ***
         txtTipo.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tblTipo_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipo_clienteMouseClicked
+         int seleccion=tblTipo_cliente.rowAtPoint(evt.getPoint());
+         txtId.setText(String.valueOf(tblTipo_cliente.getValueAt(seleccion,0)));
+         txtTipo.setText(String.valueOf(tblTipo_cliente.getValueAt(seleccion,1)));
+    }//GEN-LAST:event_tblTipo_clienteMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Tipo_cliente objTipo_cliente = new Tipo_cliente();
+         int id = Integer.parseInt(txtId.getText());
+         boolean resultado = objTipo_cliente.eliminarTipo_cliente(id);
+         if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            modeloTipo_cliente.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

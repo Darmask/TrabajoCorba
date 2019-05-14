@@ -44,7 +44,7 @@ public class Administrador extends AdministradorApp.AdministradorPOA{
     public boolean eliminarAdministrador(int id) {
        boolean resultado = false;
         try {
-            String sentenciSql = "delete from administrador where identificacion = " +id;
+            String sentenciSql = "delete from administrador where id = " +id;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);

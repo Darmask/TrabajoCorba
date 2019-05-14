@@ -63,7 +63,7 @@ public class Tipo_cliente extends Tipo_clienteApp.Tipo_clientePOA{
     public boolean eliminarTipo_cliente(int id_tipo) {
        boolean resultado = false;
         try {
-            String sentenciSql = "delete from tipo where identificacion = " + id_tipo;
+            String sentenciSql = "delete from tipo_cliente where id_tipo = " + id_tipo;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);

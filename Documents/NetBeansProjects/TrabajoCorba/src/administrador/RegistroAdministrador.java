@@ -84,11 +84,23 @@ public class RegistroAdministrador extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tblAdministrador.setModel(modeloAdministrador);
+        tblAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAdministradorMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblAdministrador);
 
         jLabel3.setText("Id");
+
+        txtId.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,6 +194,28 @@ public class RegistroAdministrador extends javax.swing.JFrame {
         txtNombre.setText("");
         txtTelefono.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tblAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAdministradorMouseClicked
+        int seleccion=tblAdministrador.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblAdministrador.getValueAt(seleccion,0)));
+        txtNombre.setText(String.valueOf(tblAdministrador.getValueAt(seleccion,1)));
+        txtTelefono.setText(String.valueOf(tblAdministrador.getValueAt(seleccion,2)));
+    }//GEN-LAST:event_tblAdministradorMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Administrador objAdministrador = new Administrador();
+         int id = Integer.parseInt(txtId.getText());
+         boolean resultado = objAdministrador.eliminarAdministrador(id);
+         if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            modeloAdministrador.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
