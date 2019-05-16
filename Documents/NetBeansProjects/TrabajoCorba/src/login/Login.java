@@ -42,7 +42,7 @@ public class Login extends LoginApp.LoginPOA{
     public boolean eliminarLogin(String usuario) {
          boolean resultado = false;
         try {
-            String sentenciSql = "delete from login where usuario = " + usuario;
+            String sentenciSql = "delete from login where usuario = '" + usuario+"'";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);
