@@ -54,7 +54,7 @@ public class registro_trabajador extends javax.swing.JFrame {
 
         txtNombreTrabajador = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
-        btnConsultar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTrabajador = new javax.swing.JTable();
@@ -75,7 +75,12 @@ public class registro_trabajador extends javax.swing.JFrame {
             }
         });
 
-        btnConsultar.setText("Consultar");
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -123,12 +128,12 @@ public class registro_trabajador extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(btnConsultar)
-                        .addGap(18, 18, 18)
+                        .addGap(45, 45, 45)
                         .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
+                        .addGap(40, 40, 40)
+                        .addComponent(btnEliminar)
+                        .addGap(42, 42, 42)
+                        .addComponent(btnLimpiar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
@@ -169,7 +174,7 @@ public class registro_trabajador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnConsultar))
+                    .addComponent(btnLimpiar))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -230,6 +235,12 @@ public class registro_trabajador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tblTrabajadorMouseClicked
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtIdTrabajador.setText("");
+        txtNombreTrabajador.setText("");
+        txtEstado.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -267,9 +278,9 @@ public class registro_trabajador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox<String> cmb_Id_local_Trabajador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;

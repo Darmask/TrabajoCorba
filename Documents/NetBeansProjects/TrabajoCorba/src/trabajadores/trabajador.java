@@ -40,7 +40,7 @@ public class trabajador extends TrabajadoresApp.TrabajadoresPOA {
             st.close();
             conex.conex.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar una nueva persona. "
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar el nuevo trabajador. "
                     + e.getMessage());
         }
         return resultado;
@@ -53,7 +53,22 @@ public class trabajador extends TrabajadoresApp.TrabajadoresPOA {
 
     @Override
     public boolean eliminarTrabajadores(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    boolean resultado = false;
+        try {
+            String sentenciSql = "delete from trabajadores where id = " + id;
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            int valor = st.executeUpdate(sentenciSql);
+            if (valor > 0) {
+                resultado = true;
+            }
+//Se cierran los recursos.
+            st.close();
+            conex.conex.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el catch: " + ex.getMessage());
+        }
+        return resultado;
     }
 
     @Override
