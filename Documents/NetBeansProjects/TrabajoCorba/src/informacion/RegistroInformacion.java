@@ -1,21 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package informacion;
 
 /**
  *
  * @author Felipe Gutierrez
  */
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
+
 public class RegistroInformacion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistroInformacion
-     */
+    
+    private DefaultTableModel modeloInformacion;
+    private DefaultComboBoxModel modeloCombo;
+    
     public RegistroInformacion() {
+        modeloInformacion = new DefaultTableModel(null, getColumn());
+        modeloCombo = new DefaultComboBoxModel(new String[]{});
         initComponents();
+        cargarTabla();
+        
+        //CONSTRUCTOR
+        
+        Informacion objInformacion = new Informacion();
+        ResultSet resultado;
+        resultado = objInformacion.cargarComboUsuario();
+        try {
+            while(resultado.next()){
+                modeloCombo.addElement(new Login(resultado.getString("usuario")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo."+e.getMessage());
+        }
+    }
+    private String[] getColumn() {
+        String columnas[] = new String[]{"id", "nombre", "apellido", "estado", "id_usuario"};
+        return columnas;
+    }
+    private void cargarTabla() {
+        Informacion objInformacion = new Informacion();
+        ResultSet resultado = objInformacion.cargarTablaInformacion();
+        try {
+            Object dato[] = new Object[5];
+            while (resultado.next()) {
+                for (int i = 0; i < 5; i++) {
+                    dato[i] = resultado.getObject(i + 1);
+                }
+                modeloInformacion.addRow(dato);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -27,39 +63,23 @@ public class RegistroInformacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblMarca = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        txtApellido = new javax.swing.JTextField();
+        cmbUsuario = new javax.swing.JComboBox<>();
         txtEstado = new javax.swing.JTextField();
-        cmbIdUsuario = new javax.swing.JComboBox<>();
+        txtApellido = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblInformacion = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblInformacion = new javax.swing.JTable();
-
-        tblMarca.setModel(modeloMarca);
-        tblMarca.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblMarcaMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblMarca);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("ID");
-
-        txtId.setEditable(false);
-
-        jLabel2.setText("Nombre:");
 
         jLabel3.setText("Apellido:");
 
@@ -67,9 +87,11 @@ public class RegistroInformacion extends javax.swing.JFrame {
 
         jLabel5.setText("Id usuario:");
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+        cmbUsuario.setModel(modeloCombo);
+
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+                txtEstadoActionPerformed(evt);
             }
         });
 
@@ -79,13 +101,25 @@ public class RegistroInformacion extends javax.swing.JFrame {
             }
         });
 
-        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
-        cmbIdUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtId.setEditable(false);
+
+        jLabel1.setText("ID");
+
+        jLabel2.setText("Nombre:");
+
+        tblInformacion.setModel(modeloInformacion);
+        tblInformacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblInformacionMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblInformacion);
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,57 +142,48 @@ public class RegistroInformacion extends javax.swing.JFrame {
             }
         });
 
-        tblInformacion.setModel(modeloMarca);
-        tblInformacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblInformacionMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tblInformacion);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbIdUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(137, 137, 137))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtEstado)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(118, 118, 118))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(btnGuardar)
-                        .addGap(39, 39, 39)
-                        .addComponent(btnEliminar)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnLimpiar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(61, 61, 61)
+                .addComponent(btnGuardar)
+                .addGap(39, 39, 39)
+                .addComponent(btnEliminar)
+                .addGap(51, 51, 51)
+                .addComponent(btnLimpiar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,94 +200,91 @@ public class RegistroInformacion extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(cmbIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                    .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
                     .addComponent(btnLimpiar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    }//GEN-LAST:event_txtEstadoActionPerformed
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
 
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void tblInformacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInformacionMouseClicked
+        int seleccion = tblInformacion.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblInformacion.getValueAt(seleccion, 0)));
+        txtNombre.setText(String.valueOf(tblInformacion.getValueAt(seleccion, 1)));
+        txtApellido.setText(String.valueOf(tblInformacion.getValueAt(seleccion, 2)));
+        txtEstado.setText(String.valueOf(tblInformacion.getValueAt(seleccion, 3)));
+        //PENDIENTE PARA QUE ASIGNE EL COMBO
+        cmbUsuario.setSelectedItem(modeloInformacion.getValueAt(tblInformacion.getSelectedRow(), 4));
+    }//GEN-LAST:event_tblInformacionMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Marca objMarca = new Marca();
-        String marca = txtMarca.getText();
-        boolean resultado = objMarca.insertarMarca(marca);
-        if (txtMarca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar la marca.");
-            txtMarca.requestFocus();
-            return;
-        }
-
-        if (resultado) {
-            JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
-            modeloMarca.setNumRows(0);
-
-            cargarTabla();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
-        }
-
-        // *** Limpio los Campos ***
-        txtMarca.setText("");
+        //        Marca objMarca = new Marca();
+        //        String marca = txtMarca.getText();
+        //        boolean resultado = objMarca.insertarMarca(marca);
+        //        if (txtMarca.getText().equals("")) {
+            //            JOptionPane.showMessageDialog(null, "Debe ingresar la marca.");
+            //            txtMarca.requestFocus();
+            //            return;
+            //        }
+        //
+        //        if (resultado) {
+            //            JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
+            //            modeloMarca.setNumRows(0);
+            //
+            //            cargarTabla();
+            //
+            //        } else {
+            //            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+            //        }
+        //
+        //        // *** Limpio los Campos ***
+        //        txtMarca.setText("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Marca objMarca = new Marca();
-        int id = Integer.parseInt(txtId.getText());
-        boolean resultado = objMarca.eliminarMarca(id);
-        if (resultado) {
-            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
-            modeloMarca.setNumRows(0);
-
-            cargarTabla();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
-        }
-
-        txtId.setText("");
-        txtMarca.setText("");
-
+        //        Marca objMarca = new Marca();
+        //        int id = Integer.parseInt(txtId.getText());
+        //        boolean resultado = objMarca.eliminarMarca(id);
+        //        if (resultado) {
+            //            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            //            modeloMarca.setNumRows(0);
+            //
+            //            cargarTabla();
+            //
+            //        } else {
+            //            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+            //        }
+        //
+        //        txtId.setText("");
+        //        txtMarca.setText("");
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtId.setText("");
-        txtMarca.setText("");
-        txtMarca.requestFocus();
+        //        txtId.setText("");
+        //        txtMarca.setText("");
+        //        txtMarca.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
-
-    private void tblMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMarcaMouseClicked
-        int seleccion=tblMarca.rowAtPoint(evt.getPoint());
-        txtId.setText(String.valueOf(tblMarca.getValueAt(seleccion,0)));
-        txtMarca.setText(String.valueOf(tblMarca.getValueAt(seleccion,1)));
-    }//GEN-LAST:event_tblMarcaMouseClicked
-
-    private void tblInformacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInformacionMouseClicked
-        int seleccion=tblMarca.rowAtPoint(evt.getPoint());
-        txtId.setText(String.valueOf(tblMarca.getValueAt(seleccion,0)));
-        txtMarca.setText(String.valueOf(tblMarca.getValueAt(seleccion,1)));
-    }//GEN-LAST:event_tblInformacionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -303,16 +325,14 @@ public class RegistroInformacion extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JComboBox<String> cmbIdUsuario;
+    private javax.swing.JComboBox<String> cmbUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tblInformacion;
-    private javax.swing.JTable tblMarca;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtId;

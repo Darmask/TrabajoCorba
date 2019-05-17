@@ -267,6 +267,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         }
 
         // *** Limpio los Campos ***
+        txtId.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         txtTipoDocumento.setText("");

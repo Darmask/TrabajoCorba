@@ -5,17 +5,54 @@
  */
 package local;
 
-/**
- *
- * @author Felipe Gutierrez
- */
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
+
 public class RegistroLocal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistroLocal
-     */
+    private DefaultTableModel modeloLocal;
+    private DefaultComboBoxModel modeloCombo;
+    
     public RegistroLocal() {
+        modeloLocal = new DefaultTableModel(null, getColumn());
+        modeloCombo = new DefaultComboBoxModel(new String[]{});
         initComponents();
+        cargarTabla();
+        
+        //CONSTRUCTOR
+        
+        Local objLocal = new Local();
+        ResultSet resultado;
+        resultado = objLocal.cargarComboAdministrador();
+        try {
+            while(resultado.next()){
+                modeloCombo.addElement(new Administrador(resultado.getInt("id"), resultado.getString("nombre")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo."+e.getMessage());
+        }
+        
+    }
+    private String[] getColumn() {
+        String columnas[] = new String[]{"id", "nombre", "direccion", "id_administrador"};
+        return columnas;
+    }
+    private void cargarTabla() {
+        Local objLocal = new Local();
+        ResultSet resultado = objLocal.cargarTablaLocal();
+        try {
+            Object dato[] = new Object[4];
+            while (resultado.next()) {
+                for (int i = 0; i < 4; i++) {
+                    dato[i] = resultado.getObject(i + 1);
+                }
+                modeloLocal.addRow(dato);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -34,12 +71,12 @@ public class RegistroLocal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cmbIdUsuario = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblLocal = new javax.swing.JTable();
+        cmbAdministrador = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,8 +102,6 @@ public class RegistroLocal extends javax.swing.JFrame {
 
         jLabel5.setText("Id administrador:");
 
-        cmbIdUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,13 +123,15 @@ public class RegistroLocal extends javax.swing.JFrame {
             }
         });
 
-        tblLocal.setModel(modeloMarca);
+        tblLocal.setModel(modeloLocal);
         tblLocal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLocalMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(tblLocal);
+
+        cmbAdministrador.setModel(modeloCombo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,8 +141,8 @@ public class RegistroLocal extends javax.swing.JFrame {
                 .addGap(105, 105, 105)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(cmbIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addComponent(cmbAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -120,19 +157,16 @@ public class RegistroLocal extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                                 .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(69, 69, 69)
-                                    .addComponent(btnGuardar)
-                                    .addGap(39, 39, 39)
-                                    .addComponent(btnEliminar)
-                                    .addGap(51, 51, 51)
-                                    .addComponent(btnLimpiar)))
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGap(69, 69, 69)
+                            .addComponent(btnGuardar)
+                            .addGap(39, 39, 39)
+                            .addComponent(btnEliminar)
+                            .addGap(51, 51, 51)
+                            .addComponent(btnLimpiar)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +174,7 @@ public class RegistroLocal extends javax.swing.JFrame {
                 .addGap(134, 134, 134)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cmbIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(188, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -178,18 +212,28 @@ public class RegistroLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Marca objMarca = new Marca();
-        String marca = txtMarca.getText();
-        boolean resultado = objMarca.insertarMarca(marca);
-        if (txtMarca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar la marca.");
-            txtMarca.requestFocus();
+        Local objLocal = new Local();
+        String nombre = txtNombre.getText();
+        String direccion = txtDireccion.getText();
+        
+        Administrador objAdministrador = (Administrador)cmbAdministrador.getSelectedItem();
+        int id = objAdministrador.getId();
+        
+        boolean resultado = objLocal.insertarLocal(nombre,direccion,id);
+        if (txtNombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre.");
+            txtNombre.requestFocus();
+            return;
+        }
+        if (txtDireccion.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar la direccion.");
+            txtDireccion.requestFocus();
             return;
         }
 
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
-            modeloMarca.setNumRows(0);
+            modeloLocal.setNumRows(0);
 
             cargarTabla();
 
@@ -198,16 +242,20 @@ public class RegistroLocal extends javax.swing.JFrame {
         }
 
         // *** Limpio los Campos ***
-        txtMarca.setText("");
+        txtId.setText("");
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        cmbAdministrador.setSelectedIndex(0);
+        txtNombre.requestFocus();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Marca objMarca = new Marca();
+        Local objLocal = new Local();
         int id = Integer.parseInt(txtId.getText());
-        boolean resultado = objMarca.eliminarMarca(id);
+        boolean resultado = objLocal.eliminarLocal(id);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
-            modeloMarca.setNumRows(0);
+            modeloLocal.setNumRows(0);
 
             cargarTabla();
 
@@ -215,20 +263,30 @@ public class RegistroLocal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
 
+        // *** Limpio los Campos ***
         txtId.setText("");
-        txtMarca.setText("");
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        cmbAdministrador.setSelectedIndex(0);
+        txtNombre.requestFocus();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // *** Limpio los Campos ***
         txtId.setText("");
-        txtMarca.setText("");
-        txtMarca.requestFocus();
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        cmbAdministrador.setSelectedIndex(0);
+        txtNombre.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void tblLocalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLocalMouseClicked
-        int seleccion=tblMarca.rowAtPoint(evt.getPoint());
-        txtId.setText(String.valueOf(tblMarca.getValueAt(seleccion,0)));
-        txtMarca.setText(String.valueOf(tblMarca.getValueAt(seleccion,1)));
+        int seleccion=tblLocal.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblLocal.getValueAt(seleccion,0)));
+        txtNombre.setText(String.valueOf(tblLocal.getValueAt(seleccion,1)));
+        txtDireccion.setText(String.valueOf(tblLocal.getValueAt(seleccion,2)));
+        //PENDIENTE PARA QUE ASIGNE EL COMBO 
+        cmbAdministrador.setSelectedItem(modeloLocal.getValueAt(tblLocal.getSelectedRow(), 3));
     }//GEN-LAST:event_tblLocalMouseClicked
 
     /**
@@ -270,7 +328,7 @@ public class RegistroLocal extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JComboBox<String> cmbIdUsuario;
+    private javax.swing.JComboBox<String> cmbAdministrador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
