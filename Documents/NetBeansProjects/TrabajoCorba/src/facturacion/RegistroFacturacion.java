@@ -12,6 +12,7 @@ package facturacion;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegistroFacturacion extends javax.swing.JFrame {
 
@@ -19,23 +20,81 @@ public class RegistroFacturacion extends javax.swing.JFrame {
      * Creates new form RegistroFacturacion
      */
     private DefaultTableModel modeloFacturacion;
-    
+    private DefaultComboBoxModel modeloComboCliente;
+    private DefaultComboBoxModel modeloComboProducto;
+    private DefaultComboBoxModel modeloComboTipoPago;
+    private DefaultComboBoxModel modeloComboLocal;
+
     public RegistroFacturacion() {
         modeloFacturacion = new DefaultTableModel(null, getColumn());
+        modeloComboCliente = new DefaultComboBoxModel(new String[]{});
+        modeloComboProducto = new DefaultComboBoxModel(new String[]{});
+        modeloComboTipoPago = new DefaultComboBoxModel(new String[]{});
+        modeloComboLocal = new DefaultComboBoxModel(new String[]{});
         initComponents();
         cargarTabla();
+
+        //CONSTRUCTOR CLIENTE
+        Facturacion objFacturacionCliente = new Facturacion();
+        ResultSet resultado;
+        resultado = objFacturacionCliente.cargarComboCliente();
+        try {
+            while (resultado.next()) {
+                modeloComboCliente.addElement(new Cliente(resultado.getInt("id"), resultado.getString("nombre")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
+        
+        //CONSTRUCTOR PRODUCTO
+        Facturacion objFacturacionProducto = new Facturacion();
+        ResultSet resultadoP;
+        resultadoP = objFacturacionProducto.cargarComboProducto();
+        try {
+            while (resultadoP.next()) {
+                modeloComboProducto.addElement(new Producto(resultadoP.getInt("id"), resultadoP.getString("nombre_producto")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
+        
+        //CONSTRUCTOR TIPO PAGO
+        Facturacion objFacturacionTipoPago = new Facturacion();
+        ResultSet resultadoPa;
+        resultadoPa = objFacturacionTipoPago.cargarComboTipoPago();
+        try {
+            while (resultadoPa.next()) {
+                modeloComboTipoPago.addElement(new TipoPago(resultadoPa.getInt("id"), resultadoPa.getString("descripcion")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
+        
+        //CONSTRUCTOR LOCAL
+        Facturacion objFacturacionLocal = new Facturacion();
+        ResultSet resultadoLo;
+        resultadoLo = objFacturacionLocal.cargarComboLocal();
+        try {
+            while (resultadoLo.next()) {
+                modeloComboLocal.addElement(new Local(resultadoLo.getInt("id"), resultadoLo.getString("nombre")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
     }
+
     private String[] getColumn() {
-        String columnas[] = new String[]{"id", "fecha_venta", "id_cliente", "id_producto", "cantidad", "precio_unidad", "precio_sin_iva"};
+        String columnas[] = new String[]{"id", "fecha_venta", "id_cliente", "id_producto", "cantidad", "precio_unidad", "precio_sin_iva", "precio_con_iva", "id_tipo_pago", "id_local"};
         return columnas;
     }
+
     private void cargarTabla() {
         Facturacion objFacturacion = new Facturacion();
         ResultSet resultado = objFacturacion.cargarTablaFacturacion();
         try {
-            Object dato[] = new Object[8];
+            Object dato[] = new Object[10];
             while (resultado.next()) {
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 10; i++) {
                     dato[i] = resultado.getObject(i + 1);
                 }
                 modeloFacturacion.addRow(dato);
@@ -68,13 +127,18 @@ public class RegistroFacturacion extends javax.swing.JFrame {
         txtPrecioUnidad = new javax.swing.JTextField();
         txtPrecioSinIva = new javax.swing.JTextField();
         txtPrecioConIva = new javax.swing.JTextField();
-        cmbIdCliente = new javax.swing.JComboBox<>();
-        cmbIdProducto = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblFacturacion = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        cmbTipoCliente = new javax.swing.JComboBox<>();
+        cmbIdProducto = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        cmbLocal = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        cmbTipoPago = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,11 +160,9 @@ public class RegistroFacturacion extends javax.swing.JFrame {
 
         jLabel8.setText("Precio con iva:");
 
-        cmbIdCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtFechaVenta.setText("DD/MM/AAAA");
 
-        cmbIdProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        tblFacturacion.setModel(modeloMarca);
+        tblFacturacion.setModel(modeloFacturacion);
         tblFacturacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblFacturacionMouseClicked(evt);
@@ -129,14 +191,31 @@ public class RegistroFacturacion extends javax.swing.JFrame {
             }
         });
 
+        cmbTipoCliente.setModel(modeloComboCliente);
+
+        cmbIdProducto.setModel(modeloComboProducto);
+        cmbIdProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbIdProductoActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Id tipo de pago:");
+
+        cmbLocal.setModel(modeloComboLocal);
+
+        jLabel10.setText("Id local:");
+
+        cmbTipoPago.setModel(modeloComboTipoPago);
+
+        jLabel11.setFont(new java.awt.Font("MS Gothic", 1, 48)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel11.setText("FACTURACION");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,25 +226,29 @@ public class RegistroFacturacion extends javax.swing.JFrame {
                         .addGap(45, 45, 45)
                         .addComponent(btnLimpiar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(48, 48, 48)
+                                .addComponent(cmbTipoPago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(50, 50, 50)
                                 .addComponent(txtPrecioConIva))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(54, 54, 54)
                                 .addComponent(txtPrecioSinIva))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(30, 30, 30)
                                 .addComponent(txtPrecioUnidad))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(80, 80, 80)
                                 .addComponent(txtCantidad))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
@@ -173,15 +256,25 @@ public class RegistroFacturacion extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtId)
                                     .addComponent(txtFechaVenta)))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3))
                                 .addGap(66, 66, 66)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbIdCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbIdProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(51, 51, 51))))
+                                    .addComponent(cmbTipoCliente, 0, 219, Short.MAX_VALUE)
+                                    .addComponent(cmbIdProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(90, 90, 90)
+                                .addComponent(cmbLocal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(175, 175, 175)
+                        .addComponent(jLabel11)
+                        .addGap(129, 129, 129))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,17 +288,18 @@ public class RegistroFacturacion extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtFechaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmbIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cmbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cmbIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -218,7 +312,18 @@ public class RegistroFacturacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtPrecioConIva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cmbTipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10)
+                    .addComponent(cmbLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
@@ -232,24 +337,108 @@ public class RegistroFacturacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblFacturacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFacturacionMouseClicked
-        int seleccion=tblFacturacion.rowAtPoint(evt.getPoint());
-        txtId.setText(String.valueOf(tblFacturacion.getValueAt(seleccion,0)));
-        txtMarca.setText(String.valueOf(tblFacturacion.getValueAt(seleccion,1)));
+        int seleccion = tblFacturacion.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblFacturacion.getValueAt(seleccion, 0)));
+        txtFechaVenta.setText(String.valueOf(tblFacturacion.getValueAt(seleccion, 1)));
+        //PENDIENTE PARA QUE ASIGNE EL COMBO 
+        //cmbTipoCliente.setSelectedItem(modeloComboCliente.getValueAt(tblFacturacion.getSelectedRow(), 2));
+        //PENDIENTE PARA QUE ASIGNE EL COMBO 
+        //cmbTipoCliente.setSelectedItem(modeloComboCliente.getValueAt(tblFacturacion.getSelectedRow(), 3));
+        txtCantidad.setText(String.valueOf(tblFacturacion.getValueAt(seleccion, 4)));
+        txtPrecioUnidad.setText(String.valueOf(tblFacturacion.getValueAt(seleccion, 5)));
+        txtPrecioSinIva.setText(String.valueOf(tblFacturacion.getValueAt(seleccion, 6)));
+        txtPrecioConIva.setText(String.valueOf(tblFacturacion.getValueAt(seleccion, 7)));
+        //PENDIENTE PARA QUE ASIGNE EL COMBO 
+        //cmbTipoCliente.setSelectedItem(modeloComboCliente.getValueAt(tblFacturacion.getSelectedRow(), 8));
+        //PENDIENTE PARA QUE ASIGNE EL COMBO 
+        //cmbTipoCliente.setSelectedItem(modeloComboCliente.getValueAt(tblFacturacion.getSelectedRow(), 9));
+
     }//GEN-LAST:event_tblFacturacionMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Marca objMarca = new Marca();
-        String marca = txtMarca.getText();
-        boolean resultado = objMarca.insertarMarca(marca);
-        if (txtMarca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar la marca.");
-            txtMarca.requestFocus();
+        Facturacion objFacturacion = new Facturacion();
+        
+        String fechaVenta = txtFechaVenta.getText();
+        
+        Cliente objCliente = (Cliente)cmbTipoCliente.getSelectedItem();
+        int idCliente = objCliente.getId();
+        
+        Producto objProducto = (Producto)cmbIdProducto.getSelectedItem();
+        int idProducto = objProducto.getId();
+        
+        TipoPago objTipoPago = (TipoPago)cmbTipoPago.getSelectedItem();
+        int idTipoPago = objTipoPago.getId();
+        
+        Local objLocal = (Local)cmbLocal.getSelectedItem();
+        int idLocal = objLocal.getId();
+        
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        int precio = Integer.parseInt(txtPrecioUnidad.getText());
+        int precioSinIva = Integer.parseInt(txtPrecioSinIva.getText());
+        int precioConIva = Integer.parseInt(txtPrecioConIva.getText());
+                
+                
+                
+        boolean resultado = objFacturacion.insertarFacturacion(fechaVenta, idCliente, idProducto, cantidad, precio, precioSinIva, precioConIva, idTipoPago, idLocal);
+        
+        if (txtFechaVenta.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de venta.");
+            txtFechaVenta.requestFocus();
+            return;
+        }
+        if (txtCantidad.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad.");
+            txtCantidad.requestFocus();
+            return;
+        }
+        if (txtPrecioUnidad.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el precio unidad.");
+            txtPrecioUnidad.requestFocus();
+            return;
+        }
+        if (txtPrecioSinIva.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el precio sin iva.");
+            txtPrecioSinIva.requestFocus();
+            return;
+        }
+        if (txtPrecioConIva.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el precio con iva.");
+            txtPrecioConIva.requestFocus();
             return;
         }
 
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
-            modeloMarca.setNumRows(0);
+            modeloFacturacion.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+        
+
+        // *** Limpio los Campos ***
+        txtId.setText("");
+        txtFechaVenta.setText("");
+        cmbTipoCliente.setSelectedIndex(0);
+        cmbIdProducto.setSelectedIndex(0);
+        txtCantidad.setText("");
+        txtPrecioUnidad.setText("");
+        txtPrecioSinIva.setText("");
+        txtPrecioConIva.setText("");
+        cmbTipoPago.setSelectedIndex(0);
+        cmbLocal.setSelectedIndex(0);
+        txtFechaVenta.requestFocus();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Facturacion objFacturacion = new Facturacion();
+        int id = Integer.parseInt(txtId.getText());
+        boolean resultado = objFacturacion.eliminarFacturacion(id);
+        if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            modeloFacturacion.setNumRows(0);
 
             cargarTabla();
 
@@ -258,32 +447,37 @@ public class RegistroFacturacion extends javax.swing.JFrame {
         }
 
         // *** Limpio los Campos ***
-        txtMarca.setText("");
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Marca objMarca = new Marca();
-        int id = Integer.parseInt(txtId.getText());
-        boolean resultado = objMarca.eliminarMarca(id);
-        if (resultado) {
-            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
-            modeloMarca.setNumRows(0);
-
-            cargarTabla();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
-        }
-
         txtId.setText("");
-        txtMarca.setText("");
+        txtFechaVenta.setText("");
+        cmbTipoCliente.setSelectedIndex(0);
+        cmbIdProducto.setSelectedIndex(0);
+        txtCantidad.setText("");
+        txtPrecioUnidad.setText("");
+        txtPrecioSinIva.setText("");
+        txtPrecioConIva.setText("");
+        cmbTipoPago.setSelectedIndex(0);
+        cmbLocal.setSelectedIndex(0);
+        txtFechaVenta.requestFocus();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+//        // *** Limpio los Campos ***
         txtId.setText("");
-        txtMarca.setText("");
-        txtMarca.requestFocus();
+        txtFechaVenta.setText("");
+        cmbTipoCliente.setSelectedIndex(0);
+        cmbIdProducto.setSelectedIndex(0);
+        txtCantidad.setText("");
+        txtPrecioUnidad.setText("");
+        txtPrecioSinIva.setText("");
+        txtPrecioConIva.setText("");
+        cmbTipoPago.setSelectedIndex(0);
+        cmbLocal.setSelectedIndex(0);
+        txtFechaVenta.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void cmbIdProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbIdProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,9 +518,13 @@ public class RegistroFacturacion extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JComboBox<String> cmbIdCliente;
     private javax.swing.JComboBox<String> cmbIdProducto;
+    private javax.swing.JComboBox<String> cmbLocal;
+    private javax.swing.JComboBox<String> cmbTipoCliente;
+    private javax.swing.JComboBox<String> cmbTipoPago;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -334,6 +532,7 @@ public class RegistroFacturacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblFacturacion;
     private javax.swing.JTextField txtCantidad;

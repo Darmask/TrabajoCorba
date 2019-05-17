@@ -45,8 +45,8 @@ public class RegistroCliente extends javax.swing.JFrame {
     }
 
     private void cargarTabla() {
-        Cliente objBanco = new Cliente();
-        ResultSet resultado = objBanco.cargarTablaCliente();
+        Cliente objCliente = new Cliente();
+        ResultSet resultado = objCliente.cargarTablaCliente();
         try {
             Object dato[] = new Object[6];
             while (resultado.next()) {
@@ -226,6 +226,7 @@ public class RegistroCliente extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Cliente objCliente = new Cliente();
+        
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String tipoDocumento = txtTipoDocumento.getText();
@@ -255,12 +256,6 @@ public class RegistroCliente extends javax.swing.JFrame {
             txtCedula.requestFocus();
             return;
         }
-//        if (cmbTipoCliente.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de cliente.");
-//            cmbTipoCliente.requestFocus();
-//            return;
-//        }
-
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
             modeloCliente.setNumRows(0);
