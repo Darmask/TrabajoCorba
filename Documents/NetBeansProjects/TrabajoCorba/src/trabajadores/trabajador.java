@@ -1,22 +1,35 @@
-
-package login;
+package trabajadores;
 
 import java.sql.*;
 import conexioncorba.Conexion;
 import javax.swing.JOptionPane;
 import org.omg.CORBA.ORB;
 
-public class Login extends LoginApp.LoginPOA{
-    
+public class trabajador extends TrabajadoresApp.TrabajadoresPOA {
+
     private ORB orb;
     Conexion conex = new Conexion();
+
+    public ResultSet cargarTablaPersona() {
+        ResultSet resultado = null;
+        try {
+            String query = "Select identificacion,nombre,apellido from persona";
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+        return resultado;
+    }
+
     @Override
-    public boolean insertarLogin(String usuario, String contrasena) {
-        
+    public boolean insertarTrabajadores(String nombre, String estado, int id_local) {
         boolean resultado = false;
         try {
-            String sentenciaSql = "insert into login (usuario,contrasena)"
-                    + "values('" + usuario + "','" + contrasena + "')";
+            String sentenciaSql = "insert into trabajadores ( nombre, estado , id_local)"
+                    + "values('" + nombre + "','" + estado + "','" + id_local + "')";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciaSql);
@@ -27,22 +40,22 @@ public class Login extends LoginApp.LoginPOA{
             st.close();
             conex.conex.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar un nuevo usuario y contraseña. "
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar el nuevo trabajador. "
                     + e.getMessage());
         }
         return resultado;
     }
 
     @Override
-    public boolean actualizarLogin(String usuario, String contrasena) {
+    public boolean actualizarTrabajadores(String nombre, String estado, int id_local) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean eliminarLogin(String usuario) {
-         boolean resultado = false;
+    public boolean eliminarTrabajadores(int id) {
+    boolean resultado = false;
         try {
-            String sentenciSql = "delete from login where usuario = '" + usuario+"'";
+            String sentenciSql = "delete from trabajadores where id = " + id;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);
@@ -57,40 +70,16 @@ public class Login extends LoginApp.LoginPOA{
         }
         return resultado;
     }
-   
-     public String consultarLogin(String usuario,String contrasena) {
-
-        String lista = "";
-        try {
-            String sentenciSql = "Select * from login where usuario = " + usuario;
-            conex.conectar();
-            Statement st = conex.conex.createStatement();
-            ResultSet rs = st.executeQuery(sentenciSql);
-            while (rs.next()) {
-                lista += rs.getLong(2) + " - "
-                        + rs.getString(3);
-                        
-            }
-//Se cierran los recursos.
-            rs.close();
-            conex.conex.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error en el catch: " + ex.getMessage());
-        }
-
-        return lista;
-
-    }
 
     @Override
     public void shutdown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-     public ResultSet cargarTablaLogin() {
+    public ResultSet cargarTablaTrabajador() {
         ResultSet resultado = null;
         try {
-            String query = "Select usuario ,contrasena from login";
+            String query = "Select id , nombre , estado , id_local from trabajadores";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);
@@ -100,6 +89,5 @@ public class Login extends LoginApp.LoginPOA{
         }
         return resultado;
     }
-   
-    
+
 }
