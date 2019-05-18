@@ -25,16 +25,16 @@ public class RegistroLogin extends javax.swing.JFrame {
         cargarTabla();
     }
     private String[] getColumn() {
-        String columnas[] = new String[]{"usuario", "contrasena"};
+        String columnas[] = new String[]{"id","usuario", "contrasena"};
         return columnas;
     }
     private void cargarTabla() {
-        Login objLogin = new Login();
+        login objLogin = new login();
         ResultSet resultado = objLogin.cargarTablaLogin();
         try {
-            Object dato[] = new Object[2];
+            Object dato[] = new Object[3];
             while (resultado.next()) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 3; i++) {
                     dato[i] = resultado.getObject(i + 1);
                 }
                 modeloLogin.addRow(dato);
@@ -65,6 +65,8 @@ public class RegistroLogin extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblLogin = new javax.swing.JTable();
         btnLimpiar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,6 +122,10 @@ public class RegistroLogin extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Id");
+
+        txtId.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,17 +147,24 @@ public class RegistroLogin extends javax.swing.JFrame {
                         .addGap(86, 86, 86)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel1)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtUsuario)
-                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                            .addComponent(txtId))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,7 +186,7 @@ public class RegistroLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Login objLogin = new Login();
+        login objLogin = new login();
         String usuario = txtUsuario.getText();
         String contrasena = txtContraseña.getText();
         boolean resultado = objLogin.insertarLogin(usuario,contrasena);
@@ -209,14 +222,15 @@ public class RegistroLogin extends javax.swing.JFrame {
 
     private void tblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoginMouseClicked
         int seleccion=tblLogin.rowAtPoint(evt.getPoint());
-        txtUsuario.setText(String.valueOf(tblLogin.getValueAt(seleccion,0)));
-        txtContraseña.setText(String.valueOf(tblLogin.getValueAt(seleccion,1)));
+        txtId.setText(String.valueOf(tblLogin.getValueAt(seleccion,0)));
+        txtUsuario.setText(String.valueOf(tblLogin.getValueAt(seleccion,1)));
+        txtContraseña.setText(String.valueOf(tblLogin.getValueAt(seleccion,2)));
     }//GEN-LAST:event_tblLoginMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Login objLogin = new Login();
-        String usuario = txtUsuario.getText();
-         boolean resultado = objLogin.eliminarLogin(usuario);
+        login objLogin = new login();
+        long id= Integer.parseInt(txtId.getText());
+         boolean resultado = objLogin.eliminarLogin(id);
          if (resultado) {
             JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
             modeloLogin.setNumRows(0);
@@ -228,6 +242,7 @@ public class RegistroLogin extends javax.swing.JFrame {
         }
          
         // *** Limpio los Campos ***
+        txtId.setText("");
         txtUsuario.setText("");
         txtContraseña.setText(""); 
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -280,11 +295,13 @@ public class RegistroLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblLogin;
     private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
