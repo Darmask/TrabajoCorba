@@ -1,7 +1,7 @@
 module InformacionApp{
     interface Informacion{
-            boolean insertarInformacion(in wstring nombre, in wstring apellido, in wstring estado, in wstring id_estado);
-            boolean actualizarInformacion(in wstring nombre, in wstring apellido, in wstring estado, in wstring id_estado);
+            boolean insertarInformacion(in wstring nombre, in wstring apellido, in wstring estado, in long id_usuario);
+            boolean actualizarInformacion(in wstring nombre, in wstring apellido, in wstring estado, in long id_usuario);
             boolean eliminarInformacion(in long id);
         oneway void shutdown();
     };
