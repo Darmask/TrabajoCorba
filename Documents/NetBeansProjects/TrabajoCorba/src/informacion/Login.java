@@ -5,14 +5,24 @@ package informacion;
  * @author Felipe Gutierrez
  */
 public class Login {
+    private int id;
     private String usuario;
     
     //constructor
-    public Login(String usuario){
+    public Login(int id,String usuario){
+        this.setId(id);
         this.setUsuario(usuario);
         
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getUsuario() {
         return usuario;
     }

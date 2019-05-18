@@ -30,7 +30,7 @@ public class Facturacion extends FacturacionApp.FacturacionPOA {
             st.close();
             conex.conex.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar un nuevo Cliente. "
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar una nueva factura. "
                     + e.getMessage());
         }
         return resultado;

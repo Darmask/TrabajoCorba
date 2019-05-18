@@ -11,33 +11,33 @@ import javax.swing.DefaultComboBoxModel;
 
 public class RegistroInformacion extends javax.swing.JFrame {
 
-    
     private DefaultTableModel modeloInformacion;
     private DefaultComboBoxModel modeloCombo;
-    
+
     public RegistroInformacion() {
         modeloInformacion = new DefaultTableModel(null, getColumn());
         modeloCombo = new DefaultComboBoxModel(new String[]{});
         initComponents();
         cargarTabla();
-        
+
         //CONSTRUCTOR
-        
         Informacion objInformacion = new Informacion();
         ResultSet resultado;
         resultado = objInformacion.cargarComboUsuario();
         try {
-            while(resultado.next()){
-                modeloCombo.addElement(new Login(resultado.getString("usuario")));
+            while (resultado.next()) {
+                modeloCombo.addElement(new Login(resultado.getInt("id"), resultado.getString("usuario")));
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar el combo."+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
         }
     }
+
     private String[] getColumn() {
         String columnas[] = new String[]{"id", "nombre", "apellido", "estado", "id_usuario"};
         return columnas;
     }
+
     private void cargarTabla() {
         Informacion objInformacion = new Informacion();
         ResultSet resultado = objInformacion.cargarTablaInformacion();
@@ -239,51 +239,78 @@ public class RegistroInformacion extends javax.swing.JFrame {
     }//GEN-LAST:event_tblInformacionMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //        Marca objMarca = new Marca();
-        //        String marca = txtMarca.getText();
-        //        boolean resultado = objMarca.insertarMarca(marca);
-        //        if (txtMarca.getText().equals("")) {
-            //            JOptionPane.showMessageDialog(null, "Debe ingresar la marca.");
-            //            txtMarca.requestFocus();
-            //            return;
-            //        }
-        //
-        //        if (resultado) {
-            //            JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
-            //            modeloMarca.setNumRows(0);
-            //
-            //            cargarTabla();
-            //
-            //        } else {
-            //            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
-            //        }
-        //
-        //        // *** Limpio los Campos ***
-        //        txtMarca.setText("");
+        Informacion objInformacion = new Informacion();
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String estado = txtEstado.getText();
+
+        Login objLogin = (Login) cmbUsuario.getSelectedItem();
+        int id_estado = objLogin.getId();
+
+        boolean resultado = objInformacion.insertarInformacion(nombre, apellido, estado, id_estado);
+        if (txtNombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre.");
+            txtNombre.requestFocus();
+            return;
+        }
+        if (txtApellido.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el apellido.");
+            txtApellido.requestFocus();
+            return;
+        }
+        if (txtEstado.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el estado.");
+            txtEstado.requestFocus();
+            return;
+        }
+        if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
+            modeloInformacion.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+
+        // *** Limpio los Campos ***
+        txtId.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtEstado.setText("");
+        cmbUsuario.setSelectedIndex(0);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        //        Marca objMarca = new Marca();
-        //        int id = Integer.parseInt(txtId.getText());
-        //        boolean resultado = objMarca.eliminarMarca(id);
-        //        if (resultado) {
-            //            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
-            //            modeloMarca.setNumRows(0);
-            //
-            //            cargarTabla();
-            //
-            //        } else {
-            //            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
-            //        }
-        //
-        //        txtId.setText("");
-        //        txtMarca.setText("");
+        Informacion objInformacion = new Informacion();
+
+        int id = Integer.parseInt(txtId.getText());
+        boolean resultado = objInformacion.eliminarInformacion(id);
+        if (resultado) {
+            JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+            modeloInformacion.setNumRows(0);
+
+            cargarTabla();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
+        }
+
+        // *** Limpio los Campos ***
+        txtId.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtEstado.setText("");
+        cmbUsuario.setSelectedIndex(0);;
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        //        txtId.setText("");
-        //        txtMarca.setText("");
-        //        txtMarca.requestFocus();
+        // *** Limpio los Campos ***
+        txtId.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtEstado.setText("");
+        cmbUsuario.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
