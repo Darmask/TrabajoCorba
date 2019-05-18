@@ -84,7 +84,7 @@ public class Cliente extends ClienteApp.ClientePOA {
     public ResultSet cargarComboTipoCliente() {
         ResultSet resultado = null;
         try {
-            String query = "Select id_tipo,tipo from tipo_cliente";
+            String query = "Select id,tipo from tipo_cliente";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);

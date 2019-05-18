@@ -89,5 +89,19 @@ public class trabajador extends TrabajadoresApp.TrabajadoresPOA {
         }
         return resultado;
     }
+    
+     //METODO PARA CONSTRUCTOR
+    public ResultSet cargarComboIdLocal() {
+        ResultSet resultado = null;
+        try {
+            String query = "Select id,nombre from local";
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+        return resultado;
+    }
 
 }

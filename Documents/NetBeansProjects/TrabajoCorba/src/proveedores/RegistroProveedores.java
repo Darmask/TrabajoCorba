@@ -1,9 +1,10 @@
 package proveedores;
 
+import ProveedoresApp.Proveedores;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import trabajadores.trabajador;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -11,27 +12,55 @@ import trabajadores.trabajador;
  */
 public class RegistroProveedores extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistroProveedores
-     */
+    private DefaultTableModel modeloProveedor;
+    private DefaultComboBoxModel modeloComboMarca;
+    private DefaultComboBoxModel modeloComboProducto;
+
     public RegistroProveedores() {
         modeloProveedor = new DefaultTableModel(null, getColumn());
+        modeloComboMarca = new DefaultComboBoxModel(new String[]{});
+        modeloComboProducto = new DefaultComboBoxModel(new String[]{});
         initComponents();
+        cargarTablaProveedor();
+
+        //CONSTRUCTOR
+        proveedores objproveedores = new proveedores();
+        ResultSet resultado;
+        resultado = objproveedores.cargarComboMarca();
+        try {
+            while (resultado.next()) {
+                modeloComboMarca.addElement(new marca(resultado.getInt("id"), resultado.getString("marca")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
         
+        //CONSTRUCTOR PRODUCTO
+        proveedores objproveedoresProducto = new proveedores();
+        ResultSet resultadoP;
+        resultadoP = objproveedoresProducto.cargarComboProducto();
+        try {
+            while (resultadoP.next()) {
+                modeloComboProducto.addElement(new productoCombo(resultadoP.getInt("id"), resultadoP.getString("nombre_producto")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
+
     }
 
     private String[] getColumn() {
-        String columnas[] = new String[]{"id", "cedula", "nombre", "apellido", "telefono", "id_producto", "id_marca", "cantidad", "precio"};
+        String columnas[] = new String[]{"id", "cedula", "nombre", "apellido", "telefono", "id_producto", "id_marca", "cantidad", "precio_compra"};
         return columnas;
     }
 
-    private void cargarTabla() {
+    private void cargarTablaProveedor() {
         proveedores objProveedores = new proveedores();
         ResultSet resultado = objProveedores.cargarTablaProveedor();
         try {
-            Object dato[] = new Object[8];
+            Object dato[] = new Object[9];
             while (resultado.next()) {
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 9; i++) {
                     dato[i] = resultado.getObject(i + 1);
                 }
                 modeloProveedor.addRow(dato);
@@ -40,8 +69,7 @@ public class RegistroProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getMessage());
         }
     }
-    private DefaultTableModel modeloProveedor;
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,8 +90,6 @@ public class RegistroProveedores extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
-        cmbIdProducto = new javax.swing.JComboBox<>();
-        cmbIdMarca = new javax.swing.JComboBox<>();
         txtCantidad = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -71,6 +97,8 @@ public class RegistroProveedores extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        cmbIdMarca = new javax.swing.JComboBox<>();
+        cmbIdProducto = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,10 +140,6 @@ public class RegistroProveedores extends javax.swing.JFrame {
             }
         });
 
-        cmbIdProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Selecionar---", " " }));
-
-        cmbIdMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Seleccionar---", " " }));
-
         tblProveedor.setModel(modeloProveedor);
         tblProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -145,6 +169,10 @@ public class RegistroProveedores extends javax.swing.JFrame {
             }
         });
 
+        cmbIdMarca.setModel(modeloComboMarca);
+
+        cmbIdProducto.setModel(modeloComboProducto);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,12 +200,12 @@ public class RegistroProveedores extends javax.swing.JFrame {
                     .addComponent(txtNombre)
                     .addComponent(txtApellido)
                     .addComponent(txtTelefono)
-                    .addComponent(cmbIdProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbIdMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtCantidad)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(165, 165, 165))
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbIdMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPrecio)
+                    .addComponent(cmbIdProducto, javax.swing.GroupLayout.Alignment.TRAILING, 0, 219, Short.MAX_VALUE))
+                .addGap(55, 55, 55))
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,27 +223,26 @@ public class RegistroProveedores extends javax.swing.JFrame {
                     .addComponent(lblCedula)
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNombre)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblApellido)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(lblTelefono))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblApellido)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTelefono)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId_Producto)
                     .addComponent(cmbIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblId_Marca)
                     .addComponent(cmbIdMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantidad)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,12 +277,51 @@ public class RegistroProveedores extends javax.swing.JFrame {
         int id_marca = cmbIdMarca.getSelectedIndex();
         int cantidad = Integer.parseInt(txtCantidad.getText());
         int precio = Integer.parseInt(txtPrecio.getText());
-        
+
+        productoCombo objTipoProducto = (productoCombo) cmbIdProducto.getSelectedItem();
+        int idTipoProducto = objTipoProducto.getId();
+
+        marca objTipoMarca = (marca) cmbIdMarca.getSelectedItem();
+        int idTipoMarca = objTipoMarca.getId();
+
         boolean resultado = objProveedor.insertarProveedores(cedula, nombre, apellido, apellido, id_producto, id_marca, id_marca, precio);
+
+        if(txtCedula.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar el numero de cedula.");
+            txtCedula.requestFocus();
+            return;
+        }
+        
+        if (txtNombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre.");
+            txtNombre.requestFocus();
+            return;
+        }
+        if (txtApellido.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el apellido.");
+            txtApellido.requestFocus();
+            return;
+        }
+        if (txtTelefono.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el numero de Telefono.");
+            txtTelefono.requestFocus();
+            return;
+        }
+        if (txtCantidad.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad.");
+            txtCedula.requestFocus();
+            return;
+        }
+        
+        if (txtPrecio.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el precio.");
+            txtApellido.requestFocus();
+            return;
+        }
         
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
-            cargarTabla();
+            cargarTablaProveedor();
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
@@ -286,13 +352,13 @@ public class RegistroProveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_tblProveedorMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       proveedores objProvedores = new proveedores();
+        proveedores objProvedores = new proveedores();
         int id = Integer.parseInt(txtId.getText());
         boolean resultado = objProvedores.eliminarProveedores(id);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
             modeloProveedor.setNumRows(0);
-            cargarTabla();
+            cargarTablaProveedor();
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }

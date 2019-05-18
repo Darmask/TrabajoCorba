@@ -1,8 +1,10 @@
 package trabajadores;
 
 import java.sql.ResultSet;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -11,13 +13,26 @@ import javax.swing.table.DefaultTableModel;
  */
 public class registro_trabajador extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Usuario
-     */
+    private DefaultComboBoxModel modeloIdLocal;
+
     public registro_trabajador() {
         modeloTrabajador = new DefaultTableModel(null, getColumn());
+        modeloIdLocal = new DefaultComboBoxModel(new String[]{});
         initComponents();
         cargarTabla();
+
+        //CONSTRUCTOR CLIENTE
+        trabajador objIdLocal = new trabajador();
+        ResultSet resultado;
+        resultado = objIdLocal.cargarComboIdLocal();
+        try {
+            while (resultado.next()) {
+                modeloIdLocal.addElement(new IdLocal(resultado.getInt("id"), resultado.getString("nombre")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
+
     }
 
     private String[] getColumn() {
@@ -62,9 +77,9 @@ public class registro_trabajador extends javax.swing.JFrame {
         lblApellido = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
-        cmb_Id_local_Trabajador = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txtIdTrabajador = new javax.swing.JTextField();
+        cmb_Id_local_Trabajador = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,8 +121,6 @@ public class registro_trabajador extends javax.swing.JFrame {
         lblDireccion.setForeground(new java.awt.Color(255, 0, 0));
         lblDireccion.setText("Id Local");
 
-        cmb_Id_local_Trabajador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Seleccionar---", " " }));
-
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Id : ");
 
@@ -117,6 +130,8 @@ public class registro_trabajador extends javax.swing.JFrame {
                 txtIdTrabajadorActionPerformed(evt);
             }
         });
+
+        cmb_Id_local_Trabajador.setModel(modeloIdLocal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,12 +158,11 @@ public class registro_trabajador extends javax.swing.JFrame {
                     .addComponent(lblNombre)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmb_Id_local_Trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtIdTrabajador, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtNombreTrabajador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addComponent(txtIdTrabajador)
+                    .addComponent(txtNombreTrabajador, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addComponent(cmb_Id_local_Trabajador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -167,17 +181,17 @@ public class registro_trabajador extends javax.swing.JFrame {
                     .addComponent(lblApellido)
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDireccion)
                     .addComponent(cmb_Id_local_Trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(119, 119, 119)
+                .addGap(114, 114, 114)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
                     .addComponent(btnLimpiar))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -189,6 +203,10 @@ public class registro_trabajador extends javax.swing.JFrame {
         String nombre = txtNombreTrabajador.getText();
         String estado = txtEstado.getText();
         int id_local = cmb_Id_local_Trabajador.getSelectedIndex();
+        modeloIdLocal = new DefaultComboBoxModel(new String[]{});
+        
+        IdLocal objIdLocal = (IdLocal)cmb_Id_local_Trabajador.getSelectedItem();
+        int idTipoCliente = objIdLocal.getId();
 
         boolean resultado = objTrabajador.insertarTrabajadores(nombre, estado, id_local);
 
@@ -232,7 +250,7 @@ public class registro_trabajador extends javax.swing.JFrame {
         txtIdTrabajador.setText(String.valueOf(tblTrabajador.getValueAt(seleccion, 0)));
         txtNombreTrabajador.setText(String.valueOf(tblTrabajador.getValueAt(seleccion, 1)));
         txtEstado.setText(String.valueOf(tblTrabajador.getValueAt(seleccion, 2)));
-        
+
     }//GEN-LAST:event_tblTrabajadorMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

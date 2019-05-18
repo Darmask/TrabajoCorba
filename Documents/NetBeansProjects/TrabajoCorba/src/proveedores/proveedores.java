@@ -1,8 +1,7 @@
 package proveedores;
 
 import conexioncorba.Conexion;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import org.omg.CORBA.ORB;
 
@@ -18,7 +17,7 @@ public class proveedores extends ProveedoresApp.ProveedoresPOA {
     public ResultSet cargarTablaProveedor() {
         ResultSet resultado = null;
         try {
-            String query = "Select id,cedula , nombre , apellido , telefono , id_producto , id_marca , marca , precio_compra from proveedores ";
+            String query = "Select id,cedula,nombre,apellido,telefono,id_producto,id_marca,cantidad,precio_compra from proveedores ";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);
@@ -79,6 +78,35 @@ public class proveedores extends ProveedoresApp.ProveedoresPOA {
     @Override
     public void shutdown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    //METODO PARA CONSTRUCTOR
+    public ResultSet cargarComboMarca() { 
+        ResultSet resultado = null;
+        try {
+            String query = "Select id,marca from marca";
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+        return resultado;
+    }
+    
+    //METODO PARA CONSTRUCTOR
+    public ResultSet cargarComboProducto() { 
+        ResultSet resultado = null;
+        try {
+            String query = "Select id,nombre_producto from producto";
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+        return resultado;
     }
     
     
