@@ -1,4 +1,3 @@
-
 package login;
 
 import java.sql.*;
@@ -6,7 +5,7 @@ import conexioncorba.Conexion;
 import javax.swing.JOptionPane;
 import org.omg.CORBA.ORB;
 
-public class Login extends LoginApp.LoginPOA{
+public class login extends LoginApp.loginPOA{
     
     private ORB orb;
     Conexion conex = new Conexion();
@@ -38,11 +37,10 @@ public class Login extends LoginApp.LoginPOA{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public boolean eliminarLogin(String usuario) {
+    public boolean eliminarLogin(long id) {
          boolean resultado = false;
         try {
-            String sentenciSql = "delete from login where usuario = '" + usuario+"'";
+            String sentenciSql = "delete from login where id = '" + id+"'";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(sentenciSql);
@@ -58,11 +56,11 @@ public class Login extends LoginApp.LoginPOA{
         return resultado;
     }
    
-     public String consultarLogin(String usuario,String contrasena) {
+     public String consultarLogin(long id) {
 
         String lista = "";
         try {
-            String sentenciSql = "Select * from login where usuario = " + usuario;
+            String sentenciSql = "Select * from login where id = " + id;
             conex.conectar();
             Statement st = conex.conex.createStatement();
             ResultSet rs = st.executeQuery(sentenciSql);
@@ -90,7 +88,7 @@ public class Login extends LoginApp.LoginPOA{
      public ResultSet cargarTablaLogin() {
         ResultSet resultado = null;
         try {
-            String query = "Select usuario ,contrasena from login";
+            String query = "Select id, usuario ,contrasena from login";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);
@@ -99,6 +97,11 @@ public class Login extends LoginApp.LoginPOA{
             JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
         }
         return resultado;
+    }
+
+    @Override
+    public boolean eliminarLogin(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
     
