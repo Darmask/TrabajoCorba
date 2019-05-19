@@ -208,7 +208,7 @@ public class registro_trabajador extends javax.swing.JFrame {
         IdLocal objIdLocal = (IdLocal)cmb_Id_local_Trabajador.getSelectedItem();
         int idTipoCliente = objIdLocal.getId();
 
-        boolean resultado = objTrabajador.insertarTrabajadores(nombre, estado, id_local);
+        boolean resultado = objTrabajador.insertarTrabajadores(nombre, estado, idTipoCliente);
 
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
