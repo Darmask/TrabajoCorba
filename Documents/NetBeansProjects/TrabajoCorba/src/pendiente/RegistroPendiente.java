@@ -1,21 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pendiente;
 
 /**
  *
  * @author Felipe Gutierrez
  */
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
+
 public class RegistroPendiente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistroPendiente
-     */
+    private DefaultTableModel modeloPendiente;
+    private DefaultComboBoxModel modeloCombo;
+    
+    
+    
     public RegistroPendiente() {
+        modeloPendiente = new DefaultTableModel(null, getColumn());
+        modeloCombo = new DefaultComboBoxModel(new String[]{});
         initComponents();
+        cargarTabla();
+        
+        //CONSTRUCTOR
+        
+        Pendiente objPendiente = new Pendiente();
+        ResultSet resultado;
+        resultado = objPendiente.cargarComboPendiente();
+        try {
+            while(resultado.next()){
+                modeloCombo.addElement(new Facturacion(resultado.getInt("id"), resultado.getString("fecha_venta")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo."+e.getMessage());
+        }
+    }
+    private String[] getColumn() {
+        String columnas[] = new String[]{"id", "descripcion", "id_factura"};
+        return columnas;
+    }
+
+    private void cargarTabla() {
+        Pendiente objPendiente = new Pendiente();
+        ResultSet resultado = objPendiente.cargarTablaPendiente();
+        try {
+            Object dato[] = new Object[3];
+            while (resultado.next()) {
+                for (int i = 0; i < 3; i++) {
+                    dato[i] = resultado.getObject(i + 1);
+                }
+                modeloPendiente.addRow(dato);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -30,7 +68,7 @@ public class RegistroPendiente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -47,9 +85,9 @@ public class RegistroPendiente extends javax.swing.JFrame {
 
         jLabel2.setText("Descripcion:");
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+                txtDescripcionActionPerformed(evt);
             }
         });
 
@@ -103,7 +141,7 @@ public class RegistroPendiente extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -129,7 +167,7 @@ public class RegistroPendiente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -147,23 +185,27 @@ public class RegistroPendiente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    }//GEN-LAST:event_txtDescripcionActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Marca objMarca = new Marca();
-        String marca = txtMarca.getText();
-        boolean resultado = objMarca.insertarMarca(marca);
-        if (txtMarca.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar la marca.");
-            txtMarca.requestFocus();
+        Pendiente objPendiente = new Pendiente();
+        String descripcion = txtDescripcion.getText();
+        
+        Facturacion objFacturacion = (Facturacion)cmbPendiente.getSelectedItem();
+        int facturacion = objFacturacion.getId();
+        
+        boolean resultado = objPendiente.insertarPendiente(descripcion,facturacion);
+        if (txtDescripcion.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar la descripcion.");
+            txtDescripcion.requestFocus();
             return;
         }
 
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
-            modeloMarca.setNumRows(0);
+            modeloPendiente.setNumRows(0);
 
             cargarTabla();
 
@@ -172,16 +214,19 @@ public class RegistroPendiente extends javax.swing.JFrame {
         }
 
         // *** Limpio los Campos ***
-        txtMarca.setText("");
+        txtId.setText("");
+        txtDescripcion.setText("");
+        cmbPendiente.setSelectedIndex(0);
+        txtDescripcion.requestFocus();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Marca objMarca = new Marca();
+        Pendiente objPendiente = new Pendiente();
         int id = Integer.parseInt(txtId.getText());
-        boolean resultado = objMarca.eliminarMarca(id);
+        boolean resultado = objPendiente.eliminarPendiente(id);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
-            modeloMarca.setNumRows(0);
+            modeloPendiente.setNumRows(0);
 
             cargarTabla();
 
@@ -189,20 +234,27 @@ public class RegistroPendiente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
 
+        // *** Limpio los Campos ***
         txtId.setText("");
-        txtMarca.setText("");
+        txtDescripcion.setText("");
+        cmbPendiente.setSelectedIndex(0);
+        txtDescripcion.requestFocus();;
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // *** Limpio los Campos ***
         txtId.setText("");
-        txtMarca.setText("");
-        txtMarca.requestFocus();
+        txtDescripcion.setText("");
+        cmbPendiente.setSelectedIndex(0);
+        txtDescripcion.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void tblLocalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLocalMouseClicked
-        int seleccion=tblMarca.rowAtPoint(evt.getPoint());
-        txtId.setText(String.valueOf(tblMarca.getValueAt(seleccion,0)));
-        txtMarca.setText(String.valueOf(tblMarca.getValueAt(seleccion,1)));
+        int seleccion=tblLocal.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblLocal.getValueAt(seleccion,0)));
+        txtDescripcion.setText(String.valueOf(tblLocal.getValueAt(seleccion,1)));
+        //PENDIENTE PARA QUE ASIGNE EL COMBO 
+        cmbPendiente.setSelectedItem(modeloPendiente.getValueAt(tblLocal.getSelectedRow(), 2));
     }//GEN-LAST:event_tblLocalMouseClicked
 
     /**
@@ -250,7 +302,7 @@ public class RegistroPendiente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblLocal;
+    private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
