@@ -29,7 +29,7 @@ public class RegistroLogin extends javax.swing.JFrame {
         return columnas;
     }
     private void cargarTabla() {
-        login objLogin = new login();
+        Login objLogin = new Login();
         ResultSet resultado = objLogin.cargarTablaLogin();
         try {
             Object dato[] = new Object[3];
@@ -186,7 +186,7 @@ public class RegistroLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        login objLogin = new login();
+        Login objLogin = new Login();
         String usuario = txtUsuario.getText();
         String contrasena = txtContraseña.getText();
         boolean resultado = objLogin.insertarLogin(usuario,contrasena);
@@ -228,8 +228,8 @@ public class RegistroLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_tblLoginMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        login objLogin = new login();
-        long id= Integer.parseInt(txtId.getText());
+        Login objLogin = new Login();
+        int id= Integer.parseInt(txtId.getText());
          boolean resultado = objLogin.eliminarLogin(id);
          if (resultado) {
             JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
