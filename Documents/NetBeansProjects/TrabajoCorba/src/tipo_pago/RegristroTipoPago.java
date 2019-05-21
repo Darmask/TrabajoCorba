@@ -61,6 +61,7 @@ public class RegristroTipoPago extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jMenuItem1 = new javax.swing.JMenuItem();
         lblIdTipoPago = new javax.swing.JLabel();
         lblDescripcion = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
@@ -74,6 +75,9 @@ public class RegristroTipoPago extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTipoPago = new javax.swing.JTable();
         cmbIdBanco = new javax.swing.JComboBox<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,6 +91,8 @@ public class RegristroTipoPago extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,6 +130,20 @@ public class RegristroTipoPago extends javax.swing.JFrame {
 
         cmbIdBanco.setModel(modeloCombo);
 
+        jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,25 +154,27 @@ public class RegristroTipoPago extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar)
-                                .addGap(48, 48, 48)
-                                .addComponent(btnEliminar)
-                                .addGap(43, 43, 43)
-                                .addComponent(btnLimpiar)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblIdBanco)
                                     .addComponent(lblEstado)
-                                    .addComponent(lblDescripcion)
-                                    .addComponent(lblIdTipoPago))
+                                    .addComponent(lblDescripcion))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbIdBanco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtIdTipoPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(79, 79, 79))))
+                                .addGap(79, 79, 79))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnGuardar)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(btnEliminar)
+                                        .addGap(43, 43, 43)
+                                        .addComponent(btnLimpiar))
+                                    .addComponent(lblIdTipoPago))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(13, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -161,11 +183,11 @@ public class RegristroTipoPago extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIdTipoPago)
                     .addComponent(txtIdTipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDescripcion)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,7 +206,7 @@ public class RegristroTipoPago extends javax.swing.JFrame {
                     .addComponent(btnLimpiar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,7 +261,7 @@ public class RegristroTipoPago extends javax.swing.JFrame {
     }//GEN-LAST:event_tblTipoPagoMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        TipoPago  objtipoPago = new TipoPago();
+        TipoPago objtipoPago = new TipoPago();
         int id = Integer.parseInt(txtIdTipoPago.getText());
         boolean resultado = objtipoPago.eliminarTipo_pago(id);
         if (resultado) {
@@ -251,13 +273,19 @@ public class RegristroTipoPago extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
-        
+
         // *** Limpio los Campos ***
         txtIdTipoPago.setText("");
         txtDescripcion.setText("");
         txtEstado.setText("");
         cmbIdBanco.setSelectedIndex(0);
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,7 +326,11 @@ public class RegristroTipoPago extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JComboBox<String> cmbIdBanco;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

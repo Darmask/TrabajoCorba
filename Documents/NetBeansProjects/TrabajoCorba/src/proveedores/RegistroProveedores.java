@@ -34,7 +34,7 @@ public class RegistroProveedores extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
         }
-        
+
         //CONSTRUCTOR PRODUCTO
         proveedores objproveedoresProducto = new proveedores();
         ResultSet resultadoP;
@@ -101,6 +101,7 @@ public class RegistroProveedores extends javax.swing.JFrame {
         cmbIdProducto = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -177,6 +178,15 @@ public class RegistroProveedores extends javax.swing.JFrame {
         cmbIdProducto.setModel(modeloComboProducto);
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -295,12 +305,12 @@ public class RegistroProveedores extends javax.swing.JFrame {
 
         boolean resultado = objProveedor.insertarProveedores(cedula, nombre, apellido, apellido, id_producto, id_marca, id_marca, precio);
 
-        if(txtCedula.getText().equals("")){
+        if (txtCedula.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar el numero de cedula.");
             txtCedula.requestFocus();
             return;
         }
-        
+
         if (txtNombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar el nombre.");
             txtNombre.requestFocus();
@@ -321,13 +331,13 @@ public class RegistroProveedores extends javax.swing.JFrame {
             txtCedula.requestFocus();
             return;
         }
-        
+
         if (txtPrecio.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar el precio.");
             txtApellido.requestFocus();
             return;
         }
-        
+
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
             cargarTablaProveedor();
@@ -394,6 +404,12 @@ public class RegistroProveedores extends javax.swing.JFrame {
         txtPrecio.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -432,6 +448,7 @@ public class RegistroProveedores extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JComboBox<String> cmbIdMarca;
     private javax.swing.JComboBox<String> cmbIdProducto;
     private javax.swing.JButton jButton2;

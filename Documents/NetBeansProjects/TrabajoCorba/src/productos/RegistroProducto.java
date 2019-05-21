@@ -59,6 +59,7 @@ public class RegistroProducto extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        bntPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -100,6 +101,15 @@ public class RegistroProducto extends javax.swing.JFrame {
         });
 
         jMenu1.setText("REGRESAR");
+
+        bntPrincipal.setText("Principal");
+        bntPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(bntPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -216,6 +226,12 @@ public class RegistroProducto extends javax.swing.JFrame {
         txtNombreProducto.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void bntPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bntPrincipalActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -250,6 +266,7 @@ public class RegistroProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem bntPrincipal;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;

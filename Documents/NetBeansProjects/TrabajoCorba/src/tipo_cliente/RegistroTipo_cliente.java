@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package tipo_cliente;
+
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author NicolasBedoya
@@ -21,10 +23,12 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
     }
-     private String[] getColumn() {
+
+    private String[] getColumn() {
         String columnas[] = new String[]{"Id_tipo", "tipo"};
         return columnas;
     }
+
     private void cargarTabla() {
         Tipo_cliente objTipo_cliente = new Tipo_cliente();
         ResultSet resultado = objTipo_cliente.cargarTablaTipo_cliente();
@@ -63,6 +67,7 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,6 +108,15 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         });
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -187,16 +201,16 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void tblTipo_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipo_clienteMouseClicked
-         int seleccion=tblTipo_cliente.rowAtPoint(evt.getPoint());
-         txtId.setText(String.valueOf(tblTipo_cliente.getValueAt(seleccion,0)));
-         txtTipo.setText(String.valueOf(tblTipo_cliente.getValueAt(seleccion,1)));
+        int seleccion = tblTipo_cliente.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblTipo_cliente.getValueAt(seleccion, 0)));
+        txtTipo.setText(String.valueOf(tblTipo_cliente.getValueAt(seleccion, 1)));
     }//GEN-LAST:event_tblTipo_clienteMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         Tipo_cliente objTipo_cliente = new Tipo_cliente();
-         int id = Integer.parseInt(txtId.getText());
-         boolean resultado = objTipo_cliente.eliminarTipo_cliente(id);
-         if (resultado) {
+        int id = Integer.parseInt(txtId.getText());
+        boolean resultado = objTipo_cliente.eliminarTipo_cliente(id);
+        if (resultado) {
             JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
             modeloTipo_cliente.setNumRows(0);
 
@@ -205,8 +219,8 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
-         
-         // *** Limpio los Campos ***
+
+        // *** Limpio los Campos ***
         txtTipo.setText("");
         txtId.setText("");
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -216,6 +230,12 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
         txtTipo.setText("");
         txtTipo.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,6 +276,7 @@ public class RegistroTipo_cliente extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

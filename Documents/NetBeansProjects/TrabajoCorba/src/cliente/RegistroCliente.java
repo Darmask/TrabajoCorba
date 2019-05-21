@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cliente;
 
 import java.sql.ResultSet;
@@ -39,7 +34,8 @@ public class RegistroCliente extends javax.swing.JFrame {
         }
     }
 
-    private String[] getColumn() {
+    
+private String[] getColumn() {
         String columnas[] = new String[]{"id", "nombre", "apellido", "tipo_documento", "cedula", "id_tipo_cliente"};
         return columnas;
     }
@@ -59,7 +55,6 @@ public class RegistroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getMessage());
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

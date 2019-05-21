@@ -78,6 +78,7 @@ public class RegistroPendiente extends javax.swing.JFrame {
         cmbPendiente = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,6 +129,15 @@ public class RegistroPendiente extends javax.swing.JFrame {
         cmbPendiente.setModel(modeloCombo);
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -266,6 +276,12 @@ public class RegistroPendiente extends javax.swing.JFrame {
         cmbPendiente.setSelectedItem(modeloPendiente.getValueAt(tblLocal.getSelectedRow(), 2));
     }//GEN-LAST:event_tblLocalMouseClicked
 
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,6 +321,7 @@ public class RegistroPendiente extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JComboBox<String> cmbPendiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

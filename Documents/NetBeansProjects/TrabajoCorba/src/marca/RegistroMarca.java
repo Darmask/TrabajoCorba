@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package marca;
+
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
@@ -23,10 +23,12 @@ public class RegistroMarca extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
     }
+
     private String[] getColumn() {
         String columnas[] = new String[]{"Id", "Marca"};
         return columnas;
     }
+
     private void cargarTabla() {
         Marca objProducto = new Marca();
         ResultSet resultado = objProducto.cargarTablaMarca();
@@ -65,6 +67,7 @@ public class RegistroMarca extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,6 +109,15 @@ public class RegistroMarca extends javax.swing.JFrame {
         });
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -188,10 +200,10 @@ public class RegistroMarca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-         Marca objMarca = new Marca();
-         int id = Integer.parseInt(txtId.getText());
-         boolean resultado = objMarca.eliminarMarca(id);
-         if (resultado) {
+        Marca objMarca = new Marca();
+        int id = Integer.parseInt(txtId.getText());
+        boolean resultado = objMarca.eliminarMarca(id);
+        if (resultado) {
             JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
             modeloMarca.setNumRows(0);
 
@@ -200,16 +212,16 @@ public class RegistroMarca extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
         }
-         
-         txtId.setText("");
-         txtMarca.setText("");
-        
+
+        txtId.setText("");
+        txtMarca.setText("");
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tblMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMarcaMouseClicked
-        int seleccion=tblMarca.rowAtPoint(evt.getPoint());
-        txtId.setText(String.valueOf(tblMarca.getValueAt(seleccion,0)));
-        txtMarca.setText(String.valueOf(tblMarca.getValueAt(seleccion,1)));
+        int seleccion = tblMarca.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblMarca.getValueAt(seleccion, 0)));
+        txtMarca.setText(String.valueOf(tblMarca.getValueAt(seleccion, 1)));
     }//GEN-LAST:event_tblMarcaMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -217,6 +229,12 @@ public class RegistroMarca extends javax.swing.JFrame {
         txtMarca.setText("");
         txtMarca.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,6 +275,7 @@ public class RegistroMarca extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
