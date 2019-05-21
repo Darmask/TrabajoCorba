@@ -231,6 +231,8 @@ public class registro_trabajador extends javax.swing.JFrame {
 
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Se inserto Correctamente");
+            modeloTrabajador.setNumRows(0);
+
             cargarTabla();
         } else {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en el Sistema");
