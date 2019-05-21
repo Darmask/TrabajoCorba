@@ -78,9 +78,8 @@ public class RegistroLocal extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblLocal = new javax.swing.JTable();
         cmbAdministrador = new javax.swing.JComboBox<>();
+        btnPrincipal4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -138,17 +137,21 @@ public class RegistroLocal extends javax.swing.JFrame {
 
         cmbAdministrador.setModel(modeloCombo);
 
-        jMenu1.setText("REGRESAR");
-
-        btnPrincipal.setText("Principal");
-        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+        btnPrincipal4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabajadores/imagen/regresar.jpg"))); // NOI18N
+        btnPrincipal4.setBorder(null);
+        btnPrincipal4.setBorderPainted(false);
+        btnPrincipal4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrincipal4.setFocusPainted(false);
+        btnPrincipal4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrincipal4.setIconTextGap(-3);
+        btnPrincipal4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnPrincipal4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrincipal4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrincipalActionPerformed(evt);
+                btnPrincipal4ActionPerformed(evt);
             }
         });
-        jMenu1.add(btnPrincipal);
 
-        jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -158,11 +161,16 @@ public class RegistroLocal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(cmbAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnPrincipal4)))
+                .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -191,11 +199,12 @@ public class RegistroLocal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(134, 134, 134)
+                .addComponent(btnPrincipal4)
+                .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -210,7 +219,7 @@ public class RegistroLocal extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnGuardar)
                         .addComponent(btnEliminar)
@@ -309,11 +318,11 @@ public class RegistroLocal extends javax.swing.JFrame {
         cmbAdministrador.setSelectedItem(modeloLocal.getValueAt(tblLocal.getSelectedRow(), 3));
     }//GEN-LAST:event_tblLocalMouseClicked
 
-    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+    private void btnPrincipal4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipal4ActionPerformed
         Principal.Principal objprincipal = new Principal.Principal();
         objprincipal.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnPrincipalActionPerformed
+    }//GEN-LAST:event_btnPrincipal4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,13 +363,12 @@ public class RegistroLocal extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JMenuItem btnPrincipal;
+    private javax.swing.JButton btnPrincipal4;
     private javax.swing.JComboBox<String> cmbAdministrador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane3;

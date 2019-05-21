@@ -65,9 +65,8 @@ public class RegistroMarca extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
+        btnPrincipal4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,17 +107,21 @@ public class RegistroMarca extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("REGRESAR");
-
-        btnPrincipal.setText("Principal");
-        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+        btnPrincipal4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabajadores/imagen/regresar.jpg"))); // NOI18N
+        btnPrincipal4.setBorder(null);
+        btnPrincipal4.setBorderPainted(false);
+        btnPrincipal4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrincipal4.setFocusPainted(false);
+        btnPrincipal4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrincipal4.setIconTextGap(-3);
+        btnPrincipal4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnPrincipal4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrincipal4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrincipalActionPerformed(evt);
+                btnPrincipal4ActionPerformed(evt);
             }
         });
-        jMenu1.add(btnPrincipal);
 
-        jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -140,7 +143,9 @@ public class RegistroMarca extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
+                        .addContainerGap()
+                        .addComponent(btnPrincipal4)
+                        .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNombre)
                             .addComponent(jLabel1))
@@ -153,20 +158,25 @@ public class RegistroMarca extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombre)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnPrincipal4)))
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
                     .addComponent(btnLimpiar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -230,11 +240,11 @@ public class RegistroMarca extends javax.swing.JFrame {
         txtMarca.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+    private void btnPrincipal4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipal4ActionPerformed
         Principal.Principal objprincipal = new Principal.Principal();
         objprincipal.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnPrincipalActionPerformed
+    }//GEN-LAST:event_btnPrincipal4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,9 +285,8 @@ public class RegistroMarca extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JMenuItem btnPrincipal;
+    private javax.swing.JButton btnPrincipal4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;

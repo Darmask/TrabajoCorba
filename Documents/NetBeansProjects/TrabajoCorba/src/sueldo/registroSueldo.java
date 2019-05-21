@@ -12,15 +12,29 @@ import javax.swing.DefaultComboBoxModel;
 public class registroSueldo extends javax.swing.JFrame {
 
     private DefaultTableModel modeloSueldo;
-
+    private DefaultComboBoxModel modeloComboTrabajador;
     public registroSueldo() {
         modeloSueldo = new DefaultTableModel(null, getColumn());
+        modeloComboTrabajador = new DefaultComboBoxModel(new String[]{});
         initComponents();
         cargarTabla();
+        
+        //CONSTRUCTOR TRABAJADOR
+        sueldo objSueldo = new sueldo();
+        ResultSet resultado;
+        resultado = objSueldo.cargarComboTrabajador();
+        try {
+            while (resultado.next()) {
+                modeloComboTrabajador.addElement(new trabajador(resultado.getInt("id"), resultado.getString("nombre")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
+        }
+        
     }
 
     private String[] getColumn() {
-        String columnas[] = new String[]{"id_Trabajador", "Sueldo", "Estado"};
+        String columnas[] = new String[]{"id" ,"id_Trabajador", "Sueldo", "Estado"};
         return columnas;
     }
 
@@ -28,9 +42,9 @@ public class registroSueldo extends javax.swing.JFrame {
         sueldo objSueldo = new sueldo();
         ResultSet resultado = objSueldo.cargarTablaSueldo();
         try {
-            Object dato[] = new Object[3];
+            Object dato[] = new Object[4];
             while (resultado.next()) {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 4; i++) {
                     dato[i] = resultado.getObject(i + 1);
                 }
                 modeloSueldo.addRow(dato);
@@ -55,9 +69,10 @@ public class registroSueldo extends javax.swing.JFrame {
         txtId = new javax.swing.JTextField();
         txtSueldo = new javax.swing.JTextField();
         txtEstado = new javax.swing.JTextField();
+        btnPrincipal = new javax.swing.JButton();
+        lblIdTrabajador = new javax.swing.JLabel();
+        cmbTipoTrabajador = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        bntPrincipal = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,18 +119,24 @@ public class registroSueldo extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("REGRESAR");
-
-        bntPrincipal.setText("Principal");
-        bntPrincipal.addActionListener(new java.awt.event.ActionListener() {
+        btnPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trabajadores/imagen/regresar.jpg"))); // NOI18N
+        btnPrincipal.setBorder(null);
+        btnPrincipal.setBorderPainted(false);
+        btnPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrincipal.setFocusPainted(false);
+        btnPrincipal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPrincipal.setIconTextGap(-3);
+        btnPrincipal.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnPrincipal.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntPrincipalActionPerformed(evt);
+                btnPrincipalActionPerformed(evt);
             }
         });
-        jMenu1.add(bntPrincipal);
 
-        jMenuBar1.add(jMenu1);
+        lblIdTrabajador.setText("Id Trabajador :");
 
+        cmbTipoTrabajador.setModel(modeloComboTrabajador);
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,7 +146,7 @@ public class registroSueldo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGuardar)
@@ -133,25 +154,36 @@ public class registroSueldo extends javax.swing.JFrame {
                                 .addComponent(btnEliminar))
                             .addComponent(lblId)
                             .addComponent(lblSueldo)
-                            .addComponent(lblEstado))
+                            .addComponent(lblEstado)
+                            .addComponent(lblIdTrabajador))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtId)
                             .addComponent(txtSueldo)
-                            .addComponent(txtEstado)))
+                            .addComponent(txtEstado)
+                            .addComponent(cmbTipoTrabajador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(btnPrincipal))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addContainerGap()
+                .addComponent(btnPrincipal)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIdTrabajador)
+                    .addComponent(cmbTipoTrabajador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSueldo)
@@ -165,9 +197,9 @@ public class registroSueldo extends javax.swing.JFrame {
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
                     .addComponent(btnLimpiar))
-                .addGap(34, 34, 34)
+                .addGap(54, 54, 54)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         pack();
@@ -189,8 +221,11 @@ public class registroSueldo extends javax.swing.JFrame {
 
         int sueldo = Integer.parseInt(txtSueldo.getText());
         String estado = txtEstado.getText();
+        
+        trabajador objTrabajador= (trabajador)cmbTipoTrabajador.getSelectedItem();
+        int idTrabajador = objTrabajador.getId();
 
-        boolean resultado = objSueldo.insertarSueldo(sueldo, estado);
+        boolean resultado = objSueldo.insertarSueldo(sueldo, estado , idTrabajador);
         if (txtSueldo.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar el sueldo.");
             txtSueldo.requestFocus();
@@ -245,11 +280,11 @@ public class registroSueldo extends javax.swing.JFrame {
         txtEstado.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void bntPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPrincipalActionPerformed
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
         Principal.Principal objprincipal = new Principal.Principal();
         objprincipal.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_bntPrincipalActionPerformed
+    }//GEN-LAST:event_btnPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,15 +322,16 @@ public class registroSueldo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem bntPrincipal;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JButton btnPrincipal;
+    private javax.swing.JComboBox<String> cmbTipoTrabajador;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblIdTrabajador;
     private javax.swing.JLabel lblSueldo;
     private javax.swing.JTable tblSueldo;
     private javax.swing.JTextField txtEstado;

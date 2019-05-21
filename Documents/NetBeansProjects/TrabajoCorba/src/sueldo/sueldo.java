@@ -16,33 +16,6 @@ public class sueldo extends SueldoApp.SueldoPOA {
     Conexion conex = new Conexion();
 
     @Override
-    public boolean insertarSueldo(int sueldo, String estado) {
-        boolean resultado = false;
-        try {
-            String sentenciaSql = "insert into sueldo (sueldo,estado)"
-                    + "values('" + sueldo + "','" + estado + "')";
-            conex.conectar();
-            Statement st = conex.conex.createStatement();
-            int valor = st.executeUpdate(sentenciaSql);
-            if (valor > 0) {
-                resultado = true;
-            }
-//Se cierran los recursos
-            st.close();
-            conex.conex.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar el sueldo. "
-                    + e.getMessage());
-        }
-        return resultado;
-    }
-
-    @Override
-    public boolean actualizarSueldo(int sueldo, String estado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean eliminarSueldo(int id_trabajador) {
         boolean resultado = false;
         try {
@@ -70,7 +43,7 @@ public class sueldo extends SueldoApp.SueldoPOA {
     public ResultSet cargarTablaSueldo() {
         ResultSet resultado = null;
         try {
-            String query = "Select id_trabajador,sueldo,estado from sueldo";
+            String query = "Select id ,id_trabajador,sueldo,estado from sueldo";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);
@@ -79,6 +52,46 @@ public class sueldo extends SueldoApp.SueldoPOA {
             JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
         }
         return resultado;
+    }
+    //METODO PARA CONSTRUCTOR
+    public ResultSet cargarComboTrabajador() {
+        ResultSet resultado = null;
+        try {
+            String query = "Select id,nombre from trabajadores";
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+        return resultado;
+    }
+
+    @Override
+    public boolean insertarSueldo(int sueldo, String estado, int id_trabajador) {
+        boolean resultado = false;
+        try {
+            String sentenciaSql = "insert into sueldo (sueldo,estado , id_trabajador)"
+                    + "values('" + sueldo + "','" + estado + "','" + id_trabajador + "')";
+            conex.conectar();
+            Statement st = conex.conex.createStatement();
+            int valor = st.executeUpdate(sentenciaSql);
+            if (valor > 0) {
+                resultado = true;
+            }
+//Se cierran los recursos
+            st.close();
+            conex.conex.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al insertar el sueldo. "
+                    + e.getMessage());
+        }
+        return resultado;
+    }
+
+    @Override
+    public boolean actualizarSueldo(int sueldo, String estado, int id_trabajador) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

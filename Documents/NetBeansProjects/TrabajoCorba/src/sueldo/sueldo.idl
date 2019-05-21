@@ -1,8 +1,8 @@
 module SueldoApp{
     interface Sueldo{
-            boolean insertarSueldo(in long sueldo, in wstring estado);
-            boolean actualizarSueldo(in long sueldo, in wstring estado);
-            boolean eliminarSueldo(in long id_trabajador);
+            boolean insertarSueldo(in long sueldo, in wstring estado , in long id_trabajador);
+            boolean actualizarSueldo(in long sueldo, in wstring estado  , in long id_trabajador);
+            boolean eliminarSueldo(in long id);
             oneway void shutdown();
     };
 };
