@@ -1,3 +1,6 @@
+package Principal;
+
+
 
 import cliente.TipoCliente;
 
@@ -292,7 +295,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTipoClienteActionPerformed
 
     private void btnTipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoPagoActionPerformed
-        
+    tipo_pago.RegristroTipoPago objTipoPago  = new  tipo_pago.RegristroTipoPago();
+    objTipoPago.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btnTipoPagoActionPerformed
 
     private void btnTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrabajadorActionPerformed

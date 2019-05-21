@@ -141,6 +141,7 @@ public class RegistroFacturacion extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -216,6 +217,15 @@ public class RegistroFacturacion extends javax.swing.JFrame {
         jLabel11.setText("FACTURACION");
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -488,6 +498,12 @@ public class RegistroFacturacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbIdProductoActionPerformed
 
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -527,6 +543,7 @@ public class RegistroFacturacion extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JComboBox<String> cmbIdProducto;
     private javax.swing.JComboBox<String> cmbLocal;
     private javax.swing.JComboBox<String> cmbTipoCliente;

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package administrador;
+
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -53,6 +54,9 @@ public class RegistroAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -66,7 +70,14 @@ public class RegistroAdministrador extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+
+        jMenu3.setText("File");
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +125,15 @@ public class RegistroAdministrador extends javax.swing.JFrame {
         });
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -247,6 +267,12 @@ public class RegistroAdministrador extends javax.swing.JFrame {
         txtNombre.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,12 +312,16 @@ public class RegistroAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblAdministrador;
     private javax.swing.JTextField txtId;

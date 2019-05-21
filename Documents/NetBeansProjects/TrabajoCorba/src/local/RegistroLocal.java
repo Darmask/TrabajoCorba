@@ -14,31 +14,32 @@ public class RegistroLocal extends javax.swing.JFrame {
 
     private DefaultTableModel modeloLocal;
     private DefaultComboBoxModel modeloCombo;
-    
+
     public RegistroLocal() {
         modeloLocal = new DefaultTableModel(null, getColumn());
         modeloCombo = new DefaultComboBoxModel(new String[]{});
         initComponents();
         cargarTabla();
-        
+
         //CONSTRUCTOR
-        
         Local objLocal = new Local();
         ResultSet resultado;
         resultado = objLocal.cargarComboAdministrador();
         try {
-            while(resultado.next()){
+            while (resultado.next()) {
                 modeloCombo.addElement(new Administrador(resultado.getInt("id"), resultado.getString("nombre")));
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar el combo."+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
         }
-        
+
     }
+
     private String[] getColumn() {
         String columnas[] = new String[]{"id", "nombre", "direccion", "id_administrador"};
         return columnas;
     }
+
     private void cargarTabla() {
         Local objLocal = new Local();
         ResultSet resultado = objLocal.cargarTablaLocal();
@@ -79,6 +80,7 @@ public class RegistroLocal extends javax.swing.JFrame {
         cmbAdministrador = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,6 +139,15 @@ public class RegistroLocal extends javax.swing.JFrame {
         cmbAdministrador.setModel(modeloCombo);
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -224,11 +235,11 @@ public class RegistroLocal extends javax.swing.JFrame {
         Local objLocal = new Local();
         String nombre = txtNombre.getText();
         String direccion = txtDireccion.getText();
-        
-        Administrador objAdministrador = (Administrador)cmbAdministrador.getSelectedItem();
+
+        Administrador objAdministrador = (Administrador) cmbAdministrador.getSelectedItem();
         int id = objAdministrador.getId();
-        
-        boolean resultado = objLocal.insertarLocal(nombre,direccion,id);
+
+        boolean resultado = objLocal.insertarLocal(nombre, direccion, id);
         if (txtNombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar el nombre.");
             txtNombre.requestFocus();
@@ -290,13 +301,19 @@ public class RegistroLocal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void tblLocalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLocalMouseClicked
-        int seleccion=tblLocal.rowAtPoint(evt.getPoint());
-        txtId.setText(String.valueOf(tblLocal.getValueAt(seleccion,0)));
-        txtNombre.setText(String.valueOf(tblLocal.getValueAt(seleccion,1)));
-        txtDireccion.setText(String.valueOf(tblLocal.getValueAt(seleccion,2)));
+        int seleccion = tblLocal.rowAtPoint(evt.getPoint());
+        txtId.setText(String.valueOf(tblLocal.getValueAt(seleccion, 0)));
+        txtNombre.setText(String.valueOf(tblLocal.getValueAt(seleccion, 1)));
+        txtDireccion.setText(String.valueOf(tblLocal.getValueAt(seleccion, 2)));
         //PENDIENTE PARA QUE ASIGNE EL COMBO 
         cmbAdministrador.setSelectedItem(modeloLocal.getValueAt(tblLocal.getSelectedRow(), 3));
     }//GEN-LAST:event_tblLocalMouseClicked
+
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +354,7 @@ public class RegistroLocal extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JComboBox<String> cmbAdministrador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

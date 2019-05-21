@@ -68,6 +68,7 @@ public class RegistroBanco extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        btnPrincipal = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -123,6 +124,15 @@ public class RegistroBanco extends javax.swing.JFrame {
         });
 
         jMenu1.setText("REGRESAR");
+
+        btnPrincipal.setText("Principal");
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnPrincipal);
+
         jMenuBar1.add(jMenu1);
         jMenuBar1.add(jMenu2);
 
@@ -251,6 +261,12 @@ public class RegistroBanco extends javax.swing.JFrame {
         txtNombre.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        Principal.Principal objprincipal = new Principal.Principal();
+        objprincipal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPrincipalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -290,6 +306,7 @@ public class RegistroBanco extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem btnPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
