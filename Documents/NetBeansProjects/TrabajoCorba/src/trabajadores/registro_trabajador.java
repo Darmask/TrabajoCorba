@@ -138,6 +138,14 @@ public class registro_trabajador extends javax.swing.JFrame {
         cmb_Id_local_Trabajador.setModel(modeloIdLocal);
 
         jMenu1.setText("REGRESAR");
+        jMenu1.setBorderPainted(false);
+        jMenu1.setContentAreaFilled(false);
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMenu1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu1.setIconTextGap(-3);
+        jMenu1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jMenu1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         btnPrincipal.setText("Principal");
         btnPrincipal.addActionListener(new java.awt.event.ActionListener() {

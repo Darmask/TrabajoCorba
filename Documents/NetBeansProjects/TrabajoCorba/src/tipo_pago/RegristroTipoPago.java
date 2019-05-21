@@ -26,7 +26,7 @@ public class RegristroTipoPago extends javax.swing.JFrame {
         resultado = objtipoPago.cargarComboTipoPago();
         try {
             while (resultado.next()) {
-                modeloCombo.addElement(new Banco(resultado.getInt("id"), resultado.getString("tipo")));
+                modeloCombo.addElement(new Banco(resultado.getInt("id"), resultado.getString("nombre")));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar el combo." + e.getMessage());
@@ -103,6 +103,8 @@ public class RegristroTipoPago extends javax.swing.JFrame {
         lblEstado.setText("Estado :");
 
         lblIdBanco.setText("Id_Banco :");
+
+        txtIdTipoPago.setEditable(false);
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {

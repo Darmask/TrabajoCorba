@@ -177,6 +177,9 @@
     <Component class="javax.swing.JTextField" name="txtDescripcion">
     </Component>
     <Component class="javax.swing.JTextField" name="txtIdTipoPago">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>

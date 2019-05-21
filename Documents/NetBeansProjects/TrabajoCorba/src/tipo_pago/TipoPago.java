@@ -72,7 +72,7 @@ public class TipoPago extends Tipo_pagoApp.Tipo_pagoPOA {
     public ResultSet cargarTablaTipoPago() {
         ResultSet resultado = null;
         try {
-            String query = "Select id,descripcion,estado,id_banco, from tipo_pago";
+            String query = "Select id,descripcion,estado,id_banco from tipo_pago";
             conex.conectar();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);

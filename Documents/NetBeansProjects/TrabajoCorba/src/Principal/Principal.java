@@ -284,7 +284,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProveedorActionPerformed
 
     private void btnSueldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSueldoActionPerformed
-        
+        sueldo.registroSueldo objSueldo = new sueldo.registroSueldo();
+        objSueldo.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSueldoActionPerformed
 
     private void btnTipoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoClienteActionPerformed
