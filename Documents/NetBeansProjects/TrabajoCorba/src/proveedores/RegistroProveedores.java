@@ -99,6 +99,9 @@ public class RegistroProveedores extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         cmbIdMarca = new javax.swing.JComboBox<>();
         cmbIdProducto = new javax.swing.JComboBox<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -172,6 +175,12 @@ public class RegistroProveedores extends javax.swing.JFrame {
         cmbIdMarca.setModel(modeloComboMarca);
 
         cmbIdProducto.setModel(modeloComboProducto);
+
+        jMenu1.setText("REGRESAR");
+        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -426,6 +435,9 @@ public class RegistroProveedores extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbIdMarca;
     private javax.swing.JComboBox<String> cmbIdProducto;
     private javax.swing.JButton jButton2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

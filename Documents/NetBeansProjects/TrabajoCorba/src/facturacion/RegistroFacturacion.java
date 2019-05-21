@@ -139,6 +139,9 @@ public class RegistroFacturacion extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cmbTipoPago = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -211,6 +214,12 @@ public class RegistroFacturacion extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("MS Gothic", 1, 48)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 0, 0));
         jLabel11.setText("FACTURACION");
+
+        jMenu1.setText("REGRESAR");
+        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -533,6 +542,9 @@ public class RegistroFacturacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblFacturacion;
     private javax.swing.JTextField txtCantidad;
