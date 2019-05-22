@@ -3,6 +3,7 @@ package Principal;
 
 
 import cliente.TipoCliente;
+import java.awt.Color;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        this.getContentPane().setBackground(Color.darkGray);
     }
 
     /**
@@ -32,6 +34,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         btnAdministrador = new javax.swing.JButton();
         btnBanco = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
@@ -47,152 +50,205 @@ public class Principal extends javax.swing.JFrame {
         btnTipoPago = new javax.swing.JButton();
         btnTrabajador = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnAdministrador.setText("Administrador");
+        btnAdministrador.setBackground(new java.awt.Color(0, 153, 153));
+        btnAdministrador.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnAdministrador.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdministrador.setText("ADMINISTRADOR");
         btnAdministrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdministradorActionPerformed(evt);
             }
         });
 
-        btnBanco.setText("Banco");
+        btnBanco.setBackground(new java.awt.Color(0, 153, 153));
+        btnBanco.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnBanco.setForeground(new java.awt.Color(255, 255, 255));
+        btnBanco.setText("BANCO");
         btnBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBancoActionPerformed(evt);
             }
         });
 
-        btnCliente.setText("Cliente");
+        btnCliente.setBackground(new java.awt.Color(0, 153, 153));
+        btnCliente.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnCliente.setText("CLIENTE");
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClienteActionPerformed(evt);
             }
         });
 
-        bntFacturacion.setText("Facturacion");
+        bntFacturacion.setBackground(new java.awt.Color(0, 153, 153));
+        bntFacturacion.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        bntFacturacion.setForeground(new java.awt.Color(255, 255, 255));
+        bntFacturacion.setText("FACTURACION");
         bntFacturacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntFacturacionActionPerformed(evt);
             }
         });
 
-        btnInformacion.setText("Informacion");
+        btnInformacion.setBackground(new java.awt.Color(0, 153, 153));
+        btnInformacion.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnInformacion.setForeground(new java.awt.Color(255, 255, 255));
+        btnInformacion.setText("INFORMACION");
         btnInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInformacionActionPerformed(evt);
             }
         });
 
-        btnLocal.setText("Local");
+        btnLocal.setBackground(new java.awt.Color(0, 153, 153));
+        btnLocal.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnLocal.setForeground(new java.awt.Color(255, 255, 255));
+        btnLocal.setText("LOCAL");
         btnLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLocalActionPerformed(evt);
             }
         });
 
-        btnMarca.setText("Marca");
+        btnMarca.setBackground(new java.awt.Color(0, 153, 153));
+        btnMarca.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnMarca.setForeground(new java.awt.Color(255, 255, 255));
+        btnMarca.setText("MARCA");
         btnMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMarcaActionPerformed(evt);
             }
         });
 
-        btnPendiente.setText("Pendiente");
+        btnPendiente.setBackground(new java.awt.Color(0, 153, 153));
+        btnPendiente.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnPendiente.setForeground(new java.awt.Color(255, 255, 255));
+        btnPendiente.setText("PENDIENTE");
         btnPendiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPendienteActionPerformed(evt);
             }
         });
 
-        btnProducto.setText("Producto");
+        btnProducto.setBackground(new java.awt.Color(0, 153, 153));
+        btnProducto.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnProducto.setText("PRODUCTO");
         btnProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductoActionPerformed(evt);
             }
         });
 
-        btnProveedor.setText("Proveedore");
+        btnProveedor.setBackground(new java.awt.Color(0, 153, 153));
+        btnProveedor.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnProveedor.setForeground(new java.awt.Color(255, 255, 255));
+        btnProveedor.setText("PROVEEDORES");
         btnProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProveedorActionPerformed(evt);
             }
         });
 
-        btnSueldo.setText("Sueldo");
+        btnSueldo.setBackground(new java.awt.Color(0, 153, 153));
+        btnSueldo.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnSueldo.setForeground(new java.awt.Color(255, 255, 255));
+        btnSueldo.setText("SUELDO");
         btnSueldo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSueldoActionPerformed(evt);
             }
         });
 
-        btnTipoCliente.setText("Tipo Cliente");
+        btnTipoCliente.setBackground(new java.awt.Color(0, 153, 153));
+        btnTipoCliente.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnTipoCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnTipoCliente.setText("TIPOS DE CLIENTE");
         btnTipoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTipoClienteActionPerformed(evt);
             }
         });
 
-        btnTipoPago.setText("Tipo Pago");
+        btnTipoPago.setBackground(new java.awt.Color(0, 153, 153));
+        btnTipoPago.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnTipoPago.setForeground(new java.awt.Color(255, 255, 255));
+        btnTipoPago.setText("TIPOS DE PAGO");
         btnTipoPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTipoPagoActionPerformed(evt);
             }
         });
 
-        btnTrabajador.setText("Trabajadore");
+        btnTrabajador.setBackground(new java.awt.Color(0, 153, 153));
+        btnTrabajador.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnTrabajador.setForeground(new java.awt.Color(255, 255, 255));
+        btnTrabajador.setText("TRABAJADORES");
         btnTrabajador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTrabajadorActionPerformed(evt);
             }
         });
 
-        btnLogin.setText("Login");
+        btnLogin.setBackground(new java.awt.Color(0, 153, 153));
+        btnLogin.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setText("LOGIN");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Lucida Handwriting", 2, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 153));
+        jLabel1.setText("REGISTRO DE VENTAS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnBanco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLocal, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnMarca, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bntFacturacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnPendiente, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSueldo)
-                    .addComponent(btnTipoCliente)
-                    .addComponent(btnTipoPago)
-                    .addComponent(btnLogin)
-                    .addComponent(btnTrabajador))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(btnAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBanco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bntFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnPendiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMarca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLocal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTrabajador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSueldo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTipoPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTipoCliente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdministrador)
                     .addComponent(btnLocal)
@@ -202,22 +258,22 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnBanco)
                     .addComponent(btnMarca)
                     .addComponent(btnTipoCliente))
-                .addGap(29, 29, 29)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCliente)
                     .addComponent(btnPendiente)
                     .addComponent(btnTipoPago))
-                .addGap(29, 29, 29)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bntFacturacion)
                     .addComponent(btnProducto)
                     .addComponent(btnTrabajador))
-                .addGap(29, 29, 29)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInformacion)
                     .addComponent(btnProveedor)
                     .addComponent(btnLogin))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -365,5 +421,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnTipoCliente;
     private javax.swing.JButton btnTipoPago;
     private javax.swing.JButton btnTrabajador;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
